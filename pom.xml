@@ -5,7 +5,8 @@
 	<modules>
 		<module>leetcode-zwc</module>
 		<module>leetcode-comm</module>
-	</modules>
+        <module>leetcode-sx</module>
+    </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
