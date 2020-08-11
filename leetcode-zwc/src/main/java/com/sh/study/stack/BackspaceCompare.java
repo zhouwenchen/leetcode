@@ -94,7 +94,6 @@ public class BackspaceCompare {
         return  build(S).equals(build(T));
     }
 
-
     private String build(String t) {
         Stack<Character> stack = new Stack<Character>();
         for(char c: t.toCharArray()){
