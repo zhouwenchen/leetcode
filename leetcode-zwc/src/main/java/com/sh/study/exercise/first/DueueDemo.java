@@ -1,4 +1,4 @@
-package com.sh.study.first;
+package com.sh.study.exercise.first;
 
 import java.util.LinkedList;
 import java.util.PriorityQueue;
