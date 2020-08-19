@@ -3,15 +3,14 @@ package com.sh.study.graph;
 import java.util.LinkedList;
 import java.util.Queue;
 
-//import static jdk.nashorn.internal.objects.Global.print;
-
 /**
  * 图
+ * 没有测试案例：不能保证代码的正确性
  *
  * @Author zhouwenchen
  * @Data 2020/8/19/14
  **/
-public class Graph {
+public class GraphDemo1 {
     /**
      * 顶点的个数
      */
@@ -22,7 +21,7 @@ public class Graph {
      */
     private LinkedList<Integer> adj[];
 
-    public Graph(int v) {
+    public GraphDemo1(int v) {
         this.v = v;
         adj = new LinkedList[v];
         for (int i = 0; i < v; ++i) {
