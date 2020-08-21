@@ -74,8 +74,8 @@
 `二叉树后序遍历`<br/>
 `二叉树层序遍历`<br/>
 `二叉树深度遍历（todo）`<br/>
-[红黑树](https://www.cnblogs.com/skywang12345/p/3624343.html)（todo）
-
+[红黑树](https://www.cnblogs.com/skywang12345/p/3624343.html)（todo）<br/>
+`二叉树的最小深度 `<br/>
 
 ## 7:堆排序
 `堆插入操作`<br/>
@@ -97,6 +97,7 @@
 ## 贪心算法
 `分糖果`<br/>
 `LCP 06. 拿硬币`<br/>
+
 
 
 听说是心得：很不错的idea

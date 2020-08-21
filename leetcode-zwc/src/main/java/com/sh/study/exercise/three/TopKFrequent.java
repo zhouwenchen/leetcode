@@ -1,12 +1,6 @@
 package com.sh.study.exercise.three;
 
-import com.sun.org.apache.bcel.internal.generic.ARETURN;
-import com.sun.org.apache.bcel.internal.generic.DRETURN;
-
-import javax.swing.*;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * 347. 前 K 个高频元素
