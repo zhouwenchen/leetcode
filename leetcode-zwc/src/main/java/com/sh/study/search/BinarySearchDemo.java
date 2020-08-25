@@ -189,7 +189,7 @@ public class BinarySearchDemo {
     public static void main(String[] args) {
         int[] nums = new int[]{1, 1, 2, 2, 2, 3, 4, 5, 5, 6, 6, 6, 9, 11, 15,15};
         // target 的测试取值，要包含多种情况 0,1,2,7,15,17 这几种情况
-        int target = 17;
+        int target = 7;
         System.out.println("查找第一个值等于给定值的元素:" + binarySearch1(nums, target));
         System.out.println("查找最后一个值等于给定值的元素:" + binarySearch2(nums, target));
         System.out.println("查找第一个大于等于给定值的元素:" + binarySearch3(nums, target));
