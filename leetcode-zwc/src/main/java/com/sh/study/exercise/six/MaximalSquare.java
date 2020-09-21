@@ -44,7 +44,7 @@ public class MaximalSquare {
                     maxSide = Math.max(maxSide, 1);
                     // 计算可能的最大正方形边长
                     int currentMaxSize = Math.min(m -i,n - j);
-                    // 继续遍历 已当前 [i][j] 为左正方形的左上角的顶点，继续遍历获取
+                    // 继续遍历 以当前 [i][j] 为左正方形的左上角的顶点，继续遍历获取
                     for(int k = 1; k < currentMaxSize;k++){
                         // 判断新增的一行一列是否为1
                         boolean flag = true;
@@ -52,7 +52,7 @@ public class MaximalSquare {
                         if(matrix[i+k][j+k] == '0'){
                             break;
                         }
-                        // 循环遍历，右变和下边的第 k位和p位是否为 ’0‘
+                        // 循环遍历，右边和下边的第 k位和p位是否为 ’0‘
                         for(int p = 0; p < k;p++){
                             if(matrix[i+k][j+p] == '0' || matrix[i+p][j+k] == '0'){
                                 flag = false;

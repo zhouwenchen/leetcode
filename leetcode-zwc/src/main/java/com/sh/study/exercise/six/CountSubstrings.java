@@ -42,6 +42,11 @@ public class CountSubstrings {
         return count;
     }
 
+    /**
+     * 使用双向指针来判断
+     * @param s
+     * @return
+     */
     private static boolean isPalindrome(String s) {
         int i = 0;
         int j = s.length() - 1;
@@ -55,7 +60,6 @@ public class CountSubstrings {
         }
         return true;
     }
-
 
     /**
      * 动态规划的实现思路
