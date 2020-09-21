@@ -32,7 +32,7 @@ public class Rob {
     /**
      * 思考：
      *  状态转移方程式: dp[i] = Math.max(dp[i - 2] + nums[i],dp[i - 1]);
-     *  边界天剑：
+     *  边界条件：
      *      dp[0] = nums[0]:只有一间屋
      *      dp[1] = Math.max(nums[0],nums[1]);只有两间屋，判断其中的一个屋就可以了
      *
@@ -193,13 +193,15 @@ public class Rob {
         if(root == null){
             return new int[2];
         }
+
+        // 后续遍历，先左节点，后右节点
         int[] left = helper(root.left);
         int[] right = helper(root.right);
 
         int[] res = new int[2];
         //计算不抢劫当前根节点可获得的最大金额(那么其左右子树可以随便抢)
         res[0] = Math.max(left[0],left[1]) + Math.max(right[0],right[1]);
-        // 表示清洁根节点
+        // 表示抢劫根节点
         res[1] = root.val + left[0] + right[0];
         return res;
     }
