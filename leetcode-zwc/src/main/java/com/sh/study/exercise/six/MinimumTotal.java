@@ -112,12 +112,16 @@ public class MinimumTotal {
         f[0][0] = triangle.get(0).get(0);
 
         for(int i = 1; i < n ; ++i){
+            // 最左边的一列初始化
             f[i][0] = f[i-1][0] + triangle.get(i).get(0);
             for(int j = 1; j < i; ++j){
                 f[i][j] = Math.min(f[i-1][j-1],f[i-1][j]) + triangle.get(i).get(j);
             }
+
+            // 最右边，也就是 i = j 的时候
             f[i][i] = f[i-1][i-1] + triangle.get(i).get(i);
         }
+        // 找出其中的最小值
         int minTotal  = f[n -1][0];
         for(int i = 1; i < n; ++i){
             minTotal = Math.min(minTotal,f[n-1][i]);
@@ -125,17 +129,18 @@ public class MinimumTotal {
         return minTotal;
     }
 
+
     public static void main(String[] args) {
         List<List<Integer>> triangle  = new ArrayList<>();
         triangle.add(Arrays.asList(2));
         triangle.add(Arrays.asList(3,4));
         triangle.add(Arrays.asList(6,5,7));
         triangle.add(Arrays.asList(4,1,8,3));
-//        System.out.println(minimumTotal(triangle));
+        System.out.println(minimumTotal(triangle));
 
 //        System.out.println(minimumTotal1(triangle));
 //        System.out.println(minimumTotal2(triangle));
 //        System.out.println(minimumTotal3(triangle));
-        System.out.println(minimumTotal4(triangle));
+//        System.out.println(minimumTotal4(triangle));
     }
 }
