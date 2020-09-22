@@ -52,7 +52,6 @@ public class LongestValidParentheses {
         }
         return max;
     }
-
     /**
      * 使用动态规划实现操作
      * 状态转移方程式：
@@ -90,12 +89,12 @@ public class LongestValidParentheses {
         String s6 = "()(())"; // 6
         String s7 = "()(()"; // 2
 
-        System.out.println(longestValidParentheses1(s1));
-        System.out.println(longestValidParentheses1(s2));
-        System.out.println(longestValidParentheses1(s3));
-        System.out.println(longestValidParentheses1(s4));
-        System.out.println(longestValidParentheses1(s5));
-        System.out.println(longestValidParentheses1(s6));
-        System.out.println(longestValidParentheses1(s7));
+        System.out.println(longestValidParentheses(s1));
+        System.out.println(longestValidParentheses(s2));
+        System.out.println(longestValidParentheses(s3));
+        System.out.println(longestValidParentheses(s4));
+        System.out.println(longestValidParentheses(s5));
+        System.out.println(longestValidParentheses(s6));
+        System.out.println(longestValidParentheses(s7));
     }
 }
