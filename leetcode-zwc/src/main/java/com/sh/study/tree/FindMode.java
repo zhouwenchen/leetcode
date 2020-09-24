@@ -53,8 +53,6 @@ public class FindMode {
             }
             return list2;
         }).collect(Collectors.toList());
-
-        //
         return list2.stream().mapToInt(Integer::valueOf).toArray();
     }
 
