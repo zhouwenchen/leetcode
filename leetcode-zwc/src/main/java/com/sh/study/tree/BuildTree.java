@@ -82,10 +82,66 @@ public class BuildTree {
         return root;
     }
 
+    /**
+     * 106. 从中序与后序遍历序列构造二叉树
+     * 根据一棵树的中序遍历与后序遍历构造二叉树。
+     *
+     * 注意:
+     * 你可以假设树中没有重复的元素。
+     *
+     * 例如，给出
+     *
+     * 中序遍历 inorder = [9,3,15,20,7]
+     * 后序遍历 postorder = [9,15,7,20,3]
+     * 返回如下的二叉树：
+     *
+     *     3
+     *    / \
+     *   9  20
+     *     /  \
+     *    15   7
+     *
+     * @param inorder 中序遍历 inorder = [9,3,15,20,7]
+     * @param postorder 后续遍历 postorder = [9,15,7,20,3]
+     * @return
+     */
+    public static TreeNode buildTree1(int[] inorder, int[] postorder) {
+        int n = postorder.length;
+        // 构造hash映射，帮助我们快速定位到根节点,中序遍历中的值和对应的下标位置 <value,index>
+        indexMap = new HashMap<>();
+        for(int i = 0; i < n; i++){
+            indexMap.put(inorder[i],i);
+        }
+        return MybuildTree1(inorder,postorder,0, n-1, 0,n-1);
+    }
+
+    private static TreeNode MybuildTree1(int[] inorder, int[] postorder,int postorder_left, int postorder_right, int inorder_left, int inorder_right) {
+        if(postorder_left > postorder_right){
+            return null;
+        }
+        // 后续遍历最后一个是根节点 的值  postorder = [9,15,7,20,3]  此时值是  postorder_root_val = 3   postorder_right = 4
+        int postorder_root_val = postorder[postorder_right];
+        // 中序遍历中根节点的位置 1  postorder_root_val = 3 此时表示的是查找 中序遍历中的父节点 索引位置   root_loc = 1
+        Integer root_loc = indexMap.get(postorder_root_val);
+        TreeNode root = new TreeNode(postorder_root_val); // 创建根节点  root = 3;
+
+        int inLeftNum=root_loc - inorder_left;  // 左节点的数量
+
+        // 遍历左右子节点
+        root.left = MybuildTree1(inorder,postorder,postorder_left,postorder_left + inLeftNum -1,inorder_left,root_loc);
+        root.right = MybuildTree1(inorder,postorder,postorder_left + inLeftNum,postorder_right-1,root_loc+1,inorder_right);
+
+        return root;
+    }
+
     public static void main(String[] args) {
-        int[] preorder = new int[]{3,9,20,15,7};
+//        int[] preorder = new int[]{3,9,20,15,7};
+//        int[] inorder = new int[]{9,3,15,20,7};
+//        TreeNode root = buildTree(preorder, inorder);
+//
+        int[] postorder = new int[]{9,15,7,20,3};
         int[] inorder = new int[]{9,3,15,20,7};
-        TreeNode root = buildTree(preorder, inorder);
+        TreeNode root = buildTree1(inorder, postorder);
         System.out.println(root.val);
     }
 }
