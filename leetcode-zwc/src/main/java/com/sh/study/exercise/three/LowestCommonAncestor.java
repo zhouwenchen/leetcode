@@ -110,6 +110,24 @@ public class LowestCommonAncestor {
         return q;
     }
 
+    /**
+     * 如果两个节点值都小于根节点，说明他们都在根节点的左子树上，我们往左子树上找
+     * 如果两个节点值都大于根节点，说明他们都在根节点的右子树上，我们往右子树上找
+     * 如果一个节点值大于根节点，一个节点值小于根节点，说明他们他们一个在根节点的左子树上一个在根节点的右子树上，那么根节点就是他们的最近公共祖先节点。
+     *
+     * @param root
+     * @param p
+     * @param q
+     * @return
+     */
+    public static TreeNode lowestCommonAncestor2(TreeNode root, TreeNode p, TreeNode q) {
+        // 根节点减去 p 和 q，相乘的积，如果大于0 ，表示在同一侧
+        while ((root.val - p.val) * (root.val -q.val) > 0){
+            root = p.val < root.val?root.left:root.right;
+        }
+       return root;
+    }
+
 
     public static void main(String[] args) {
         TreeNode node3 = new TreeNode(3);
@@ -132,7 +150,8 @@ public class LowestCommonAncestor {
         node2.right = node4;
 
 //        TreeNode root = lowestCommonAncestor(node3, node5, node1);
-        TreeNode root = lowestCommonAncestor1(node3, node5, node1);
+//        TreeNode root = lowestCommonAncestor1(node3, node5, node1);
+        TreeNode root = lowestCommonAncestor2(node3, node5, node1);
         System.out.println("二叉树的最近公共祖先:" + root.val);
     }
 }
