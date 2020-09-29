@@ -32,6 +32,8 @@ package com.sh.study.exercise.eight;
 public class ReverseOnlyLetters {
     /**
      * 如何判断字符在  [a-z && A-Z] 之间，如何判断
+     * 前后指针，start end。start 从前找到第一个字符，end从后遍历，找到第一个字符，交换 start 和 end 位置的数据
+     *
      * @param S
      * @return
      */
@@ -41,23 +43,29 @@ public class ReverseOnlyLetters {
         }
 
         char[] arrs = S.toCharArray();
-        int start = 0;
-        int end = arrs.length - 1;
-        for (char arr : arrs){
-            // 判断字符是否满足条件，通过双指针实现替换操作
-            if(arr >= 'a' && arr <= 'z' || arr >='A' && arr <= 'Z'){
-                while (start < end){
-                    char temp = arrs[start];
-                    arrs[start] = arrs[end];
-                    arrs[end] = temp;
-                }
+        for (int start = 0, end = arrs.length -1; start < end; ){
+            while ((start < end ) &&(arrs[start] < 'a' || arrs[start] > 'z' )&& (arrs[start] < 'A' || arrs[start] > 'Z')){
+                start++;
             }
+            while ((start < end ) && (arrs[end] < 'a' || arrs[end] > 'z' )&& (arrs[end] < 'A' || arrs[end] > 'Z')){
+                end--;
+            }
+            // 替换
+            if (start < end){
+                char temp = arrs[start];
+                arrs[start] = arrs[end];
+                arrs[end] = temp;
+            }
+            start++;
+            end--;
         }
-        return null;
+        return new String(arrs);
     }
 
     public static void main(String[] args) {
-        String s = "a-bC-dEf-ghIj";
+//        String s = "a-bC-dEf-ghIj"; // "j-Ih-gfE-dCba"
+//        String s = "Test1ng-Leet=code-Q!"; // "Qedo1ct-eeLg=ntse-T!"
+        String s = "7_28]"; // "Qedo1ct-eeLg=ntse-T!"
         System.out.println(reverseOnlyLetters(s));
     }
 }
