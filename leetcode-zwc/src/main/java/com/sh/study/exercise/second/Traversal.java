@@ -335,9 +335,9 @@ public class Traversal {
 //		node7.right = node8;
 //		List<Integer> list = inorderTraversal1(node1);
 //		List<Integer> list = inorderTraversal(node1);
-// 		List<Integer> list = postorderTraversal3(node1);
+ 		List<Integer> list = postorderTraversal2(node1);
 // 		List<Integer> list = levelTraverse(node1);
-        List<List<Integer>> list = levelOrder(node1);
+//        List<List<Integer>> list = levelOrder(node1);
 //        List<Integer> list = preorderTraversal2(node1);
         list.stream().forEach( o -> System.out.print(o + " "));
 
