@@ -33,7 +33,7 @@ public class LongestValidParentheses {
             return 0;
         }
         char left = '(';
-        char right = ')';
+//        char right = ')';
 
         Deque<Integer> stack = new ArrayDeque<>();
         stack.push(-1);
