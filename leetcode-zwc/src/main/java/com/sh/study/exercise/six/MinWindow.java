@@ -1,5 +1,8 @@
 package com.sh.study.exercise.six;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 76. 最小覆盖子串
  * 给你一个字符串 S、一个字符串 T 。请你设计一种算法，可以在 O(n) 的时间复杂度内，从字符串 S 里面找出：包含 T 所有字符的最小子串。
@@ -19,6 +22,38 @@ package com.sh.study.exercise.six;
  *
  * 解题思路
  * https://leetcode-cn.com/problems/minimum-window-substring/solution/tong-su-qie-xiang-xi-de-miao-shu-hua-dong-chuang-k/
+ *
+ *
+ * TODO 滑动窗口的解决模板
+ * void slidingWindow(string s, string t) {
+ *     unordered_map<char, int> need, window;
+ *     for (char c : t) need[c]++;
+ *
+ *     int left = 0, right = 0;
+ *     int valid = 0;
+ *     while (right < s.size()) {
+ *         // c 是将移入窗口的字符
+ *         char c = s[right];
+ *         // 右移窗口
+ *         right++;
+ *         // 进行窗口内数据的一系列更新
+ *         ...
+ *
+ *         // debug 输出的位置
+ *         printf("window: [%d, %d)\n", left, right);
+ *         //
+ *
+ *         // 判断左侧窗口是否要收缩
+ *         while (window needs shrink) {
+ *             // d 是将移出窗口的字符
+ *             char d = s[left];
+ *             // 左移窗口
+ *             left++;
+ *             // 进行窗口内数据的一系列更新
+ *             ...
+ *         }
+ *     }
+ * }
  *
  * @Author zhouwenchen
  * @Date  2020-09-18
@@ -71,9 +106,67 @@ public class MinWindow {
         return size == Integer.MAX_VALUE ? "" : s.substring(start, start + size);
     }
 
+    /**
+     *
+     * @param s
+     * @param t
+     * @return
+     */
+    public static String minWindow1(String s, String t) {
+        Map<Character,Integer> map = new HashMap<>();
+        Map<Character,Integer> windows = new HashMap<>();
+        char[] tarr = t.toCharArray();
+        for(char c: tarr){
+            map.put(c,map.getOrDefault(c,0)+1);
+        }
+
+        int left = 0;
+        int right = 0;
+        int valid = 0;
+
+        // 记录最小覆盖子串的起始索引及长度
+        int start = 0;
+        int len = Integer.MAX_VALUE;
+        char[] sarr = s.toCharArray();
+        while (right < s.length()){
+            // c 表示要移入的字符
+            char c = sarr[right];
+            // 右移窗口
+            right++;
+            // 进行窗口的一系列的更新操作
+            if(map.containsKey(c)){
+                windows.put(c,windows.getOrDefault(c,0)+1);
+                if (windows.get(c).equals(map.get(c))){
+                    valid++;
+                }
+            }
+
+            // 判断左边窗口是否需要右移操作
+            while (valid == map.size()){
+                // 在这里更新
+                if(right  - left < len){
+                    start = left;
+                    len = right - left;
+                }
+
+                // 将字符移除窗口
+                char d = sarr[left];
+                left++;
+                // 进行窗口内的一系列数据更新
+                if(map.containsKey(d)){
+                    if(map.get(d).equals(windows.get(d))){
+                        valid--;
+                    }
+                    windows.put(d,windows.get(d) - 1);
+                }
+            }
+        }
+        return len ==Integer.MAX_VALUE ? "": s.substring(start, start + len);
+    }
+
     public static void main(String[] args) {
         String s = "ADOBECODEBANC";
         String t = "ABC";
-        System.out.println(minWindow(s, t));
+        System.out.println(minWindow1(s, t));
     }
 }
