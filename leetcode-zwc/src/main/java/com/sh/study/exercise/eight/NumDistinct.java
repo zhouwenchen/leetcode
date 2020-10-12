@@ -65,31 +65,27 @@ public class NumDistinct {
      * @return
      */
     public static int numDistinct(String s, String t) {
-        char[] tarr = t.toCharArray();
-        char[] sarr = s.toCharArray();
-
-        int m = tarr.length;
-        int n = sarr.length;
-
+        int m = t.toCharArray().length;
+        int n = s.toCharArray().length;
         // 定义动态规划操作
-        int[][] dp = new int[m][n];
+        int[][] dp = new int[m+1][n+1];
         // base case 动态规划数组值
 //        for(int i = 1; i < n; i++){
 //            dp[i][0] = 0;
 //        }
-        for(int j = 0; j < n; j++){
+        for(int j = 0; j < n + 1; j++){
             dp[0][j] = 1;
         }
-        for (int i = 1; i < m; i++){
-            for (int j = 1; j < n; j++){
-                if(sarr[i-1] == tarr[j-1]){
+        for (int i = 1; i < m + 1; i++){
+            for (int j = 1; j < n + 1; j++){
+                if(t.charAt(i-1) == s.charAt(j-1)){
                     dp[i][j] = dp[i-1][j-1] + dp[i][j-1];
                 }else{
                     dp[i][j] = dp[i][j-1];
                 }
             }
         }
-        return dp[m-1][n-1];
+        return dp[m][n];
     }
 
     public static void main(String[] args) {
