@@ -1,5 +1,7 @@
 package com.sh.study.exercise.first;
 
+import org.omg.CORBA.INTERNAL;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -73,6 +75,29 @@ public class TwoSum {
         return null;
     }
 
+    /**
+     * TODO review
+     * @date 2020-10-13
+     * @param nums
+     * @param target
+     * @return
+     */
+    public static int[] twoSum3(int[] nums, int target) {
+        if(nums == null || nums.length < 2){
+            return null;
+        }
+        Map<Integer,Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++){
+            int value = target - nums[i];
+            if(map.containsKey(value)){
+                return new int[]{i,map.get(value)};
+            } else{
+                map.put(nums[i],i);
+            }
+        }
+        return null;
+    }
+
 
     public static void main(String[] args) {
 //        int[] nums = new int[]{2,7,11,15};
@@ -82,7 +107,7 @@ public class TwoSum {
         int target = 6;
 
 
-        int[] result = twoSum2(nums, target);
+        int[] result = twoSum3(nums, target);
         Arrays.stream(result).forEach(o-> System.out.println( o + "\t"));
     }
 }

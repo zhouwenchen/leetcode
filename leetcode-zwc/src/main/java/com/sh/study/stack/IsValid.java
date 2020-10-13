@@ -84,8 +84,50 @@ public class IsValid {
         return true;
     }
 
+    /**
+     * 使用一个栈实现，遇到左括号 入栈   遇到右括号，出栈操作
+     *
+     * TODO review
+     * @date 2020-10-13
+     * @param s
+     * @return
+     */
+    public static boolean isValid1(String s) {
+        if(s == null){
+            return false;
+        }
+        char[] arr = s.toCharArray();
+        Map<Character,Character> map = new HashMap<Character, Character>(){{
+            put(')','(');
+            put(']','[');
+            put('}','{');
+        }};
+        Stack<Character> stack = new Stack<Character>();
+        for (char t : arr){
+            if(map.containsKey(t)){
+                if(stack.isEmpty()){
+                    return false;
+                }
+                if(!map.get(t).equals(stack.peek())){
+                    return false;
+                }
+                stack.pop();
+            }else {
+                stack.push(t);
+            }
+        }
+        if(!stack.isEmpty()){
+            return false;
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
-//        System.out.println(isValid("()"));
-        System.out.println(isValid("["));
+        System.out.println(isValid1("()"));
+        System.out.println(isValid1("{[]}"));
+        System.out.println(isValid1("{[]"));
+        System.out.println(isValid1("["));
+        System.out.println(isValid1("(]"));
+        System.out.println(isValid1("]"));
     }
 }
