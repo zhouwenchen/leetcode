@@ -62,8 +62,7 @@ public class FirstUniqChar {
         }
         char[] hash = new char[26];
         char[] arrs = s.toCharArray();
-        int loc = 0;
-        LinkedList<Integer> loclist = new LinkedList<Integer>();
+//        int loc = 0;
         Map<Character,Integer> map = new LinkedHashMap<>();
         for(int i = 0; i < arrs.length;i++){
             hash[arrs[i] - 'a'] ++;
