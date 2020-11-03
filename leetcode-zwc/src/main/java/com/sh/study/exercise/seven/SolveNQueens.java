@@ -101,7 +101,101 @@ public class SolveNQueens {
         return board;
     }
 
+    /**
+     *
+     * @param n
+     * @return
+     */
+    public static List<List<String>> solveNQueens1(int n) {
+        char[][] chess = new char[n][n];
+        // 初始化数组
+        for (int i = 0; i < n;i++){
+            for (int j = 0; j < n; j++){
+                chess[i][j] = '.';
+            }
+        }
+        List<List<String>> res = new ArrayList<>();
+        solve(res, chess, 0);
+        return res;
+    }
+
+    private static void solve(List<List<String>> res, char[][] chess, int row) {
+        // 终止条件，最后一行都走完了的话，说明找到了一组，把他加入到集合中 res
+        if(row == chess.length){
+            res.add(construct(chess));
+            return;
+        }
+
+        // 遍历每一行
+        for (int col = 0; col < chess.length;col++){
+            // 判断当前位置是否可以防止皇后
+            if(vaild(chess,row,col)){
+                // 复制数组
+                char[][] temp = copy(chess);
+                // 在当前位置放置皇后
+                temp[row][col] = 'Q';
+                // 递归到下一行继续
+                solve(res,temp,row + 1);
+            }
+        }
+    }
+
+    //把二维数组chess中的数据测下copy一份
+    private static char[][] copy(char[][] chess) {
+        char[][] temp = new char[chess.length][chess[0].length];
+        for (int i = 0; i < chess.length; i++) {
+            for (int j = 0; j < chess[0].length; j++) {
+                temp[i][j] = chess[i][j];
+            }
+        }
+        return temp;
+    }
+
+    /**
+     * 验证当前的位置是否放置皇后
+     * @param chess
+     * @param row
+     * @param col
+     * @return
+     */
+    private static boolean vaild(char[][] chess, int row, int col) {
+        // 当前位置的上面有没有
+        for (int i = 0; i < row; i++) {
+            if (chess[i][col] == 'Q') {
+                return false;
+            }
+        }
+
+        // 当前坐标的右上角
+        for (int i = row - 1, j = col + 1; i >= 0 && j < chess.length; i--, j++) {
+            if (chess[i][j] == 'Q') {
+                return false;
+            }
+        }
+        //判断当前坐标的左上角有没有皇后
+        for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
+            if (chess[i][j] == 'Q') {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * 创建数组
+     * @param chess
+     * @return
+     */
+    private static List<String> construct(char[][] chess) {
+        List<String> path = new ArrayList<>();
+        for (int i = 0; i < chess.length;i++){
+            path.add(new String(chess[i]));
+        }
+        return path;
+    }
+
     public static void main(String[] args) {
-        solveNQueens(8).stream().forEach(o->Arrays.asList(o).stream().forEach(System.out::println));
+        solveNQueens1(8).stream().forEach(o->Arrays.asList(o).stream().forEach(System.out::println));
     }
 }

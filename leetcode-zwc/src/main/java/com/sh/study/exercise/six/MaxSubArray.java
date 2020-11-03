@@ -33,7 +33,7 @@ public class MaxSubArray {
     }
 
     /**
-     *
+     * 不用状态转移方程式也是可以的嘛
      * @param nums
      * @return
      */
@@ -55,9 +55,9 @@ public class MaxSubArray {
     }
 
     public static void main(String[] args) {
-//        int[] nums = new int[]{-2,1,-3,4,-1,2,1,-5,4};
-        int[] nums = new int[]{1};
-//        System.out.println(maxSubArray(nums));
-        System.out.println(maxSubArray1(nums));
+        int[] nums = new int[]{-2,1,-3,4,-1,2,1,-5,4};
+//        int[] nums = new int[]{1};
+        System.out.println(maxSubArray(nums));
+//        System.out.println(maxSubArray1(nums));
     }
 }
