@@ -48,6 +48,73 @@ public class Search {
         return lo == hi && nums[lo] == target ? lo : -1;
     }
 
+    /**
+     * 2020-10-22 第二次实现思路
+     * 基于二分查找方法实现操作
+     * @param nums
+     * @param target
+     * @return
+     */
+    public static int search1(int[] nums, int target) {
+        int n = nums.length;
+        if (n == 0){
+            return -1;
+        }
+        if(n == 1){
+            return nums[0] == target? 0: -1;
+        }
+
+        int l = 0;
+        int r = n - 1;
+        while (l <= r){
+            int mid = (l + r )/ 2;
+            if(nums[mid] == target){
+                return mid;
+            }
+            if(nums[0] <= nums[mid]){  // 表示左边是排好序的数组
+                if(nums[0] <= target && target < nums[mid]){
+                    r = mid - 1;
+                } else{
+                    l = mid + 1;
+                }
+            } else {
+                if(nums[mid] < target && target <= nums[n-1]){
+                    l = mid + 1;
+                } else{
+                    r = mid - 1;
+                }
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 81. 搜索旋转排序数组 II
+     * 假设按照升序排序的数组在预先未知的某个点上进行了旋转。
+     *
+     * ( 例如，数组 [0,0,1,2,2,5,6] 可能变为 [2,5,6,0,0,1,2] )。
+     *
+     * 编写一个函数来判断给定的目标值是否存在于数组中。若存在返回 true，否则返回 false。
+     *
+     * 示例 1:
+     *
+     * 输入: nums = [2,5,6,0,0,1,2], target = 0
+     * 输出: true
+     * 示例 2:
+     *
+     * 输入: nums = [2,5,6,0,0,1,2], target = 3
+     * 输出: false
+     *
+     * @param nums
+     * @param target
+     * @date 2020-10-22
+     * @return
+     */
+    public boolean search2(int[] nums, int target) {
+        
+        return false;
+    }
+
     public static void main(String[] args) {
 //        int[] nums = new int[]{4,5,6,7,0,1,2};
 //        int target = 0;
@@ -55,12 +122,12 @@ public class Search {
 //        int[] nums = new int[]{4,5,6,7,0,1,2};
 //        int target = 3;
 
-//        int[] nums = new int[]{5,1,3};
-//        int target = 3;
-        int[] nums = new int[]{8,1,2,3,4,5,6,7};
-        int target = 6;
+        int[] nums = new int[]{5,1,3};
+        int target = 3;
+//        int[] nums = new int[]{8,1,2,3,4,5,6,7};
+//        int target = 6;
 
-        int index = search(nums, target);
+        int index = search1(nums, target);
         System.out.println(index);
     }
 }
