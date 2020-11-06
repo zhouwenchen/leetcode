@@ -89,8 +89,47 @@ public class Fib {
         return a;
     }
 
+    /**
+     * 基于递归，使用备忘录实现
+     * @param n
+     * @return
+     */
+    public static int[] arr = new int[71];
+    public static int fib3(int n){
+        if(n==1 || n==2){
+            return 1;
+        }
+        if(arr[n] !=0){
+            return arr[n];
+        }
+        arr[n] = fib3(n-1) + fib3(n-2);
+        return arr[n];
+    }
+
+    /**
+     * 基于动态规划
+     * int[] dp = new int[n];
+     * 当 i = 1,2时，dp[1] =1,dp[2] = 1;
+     * 当 i>2时，dp[i] = dp[i-1]+ dp[i-2];
+     * @param n
+     * @return
+     */
+    public static int fib4(int n){
+        // base case
+        int[] dp = new int[n+1];
+        dp[1] = 1;
+        dp[2] = 1;
+        for (int i = 3; i <=n;i++){
+            // 状态转移方程式
+            dp[i] = dp[i-1]+dp[i-2];
+        }
+        return dp[n];
+    }
+
     public static void main(String[] args) {
-        System.out.println(fib1(70));
-        System.out.println(fib2(70));
+        System.out.println(fib1(20));
+        System.out.println(fib2(20));
+        System.out.println(fib3(20));
+        System.out.println(fib4(20));
     }
 }
