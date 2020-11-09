@@ -15,6 +15,7 @@ public class QuickSort {
             return -1;
         }
         if (start < end) {
+            // 获取分区节点最终的位置
             int index = getIndex(nums, start, end);
             quickSort(nums, 0, index - 1);
             quickSort(nums, index + 1, end);
