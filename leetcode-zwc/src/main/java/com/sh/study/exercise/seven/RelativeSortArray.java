@@ -74,14 +74,51 @@ public class  RelativeSortArray{
         return newArr1;
     }
 
+    /**
+     *
+     * @param arr1
+     * @param arr2
+     * @date 2020-11-14
+     * @return
+     */
+    public static int[] relativeSortArray1(int[] arr1, int[] arr2) {
+        int upder = 0;
+        // 获取到arr1中的最大值
+        for (int value : arr1) {
+            upder = Math.max(upder,value);
+        }
+        // 统计 arr1 中每个元素出现的次数
+        int[] frequency = new int[upder+1];
+        for (int x : arr1){
+            ++frequency[x];
+        }
+
+        // 封装结果数据
+        int[] ans = new int[arr1.length];
+        int index = 0;
+        for (int x:arr2){
+            for (int i = 0; i < frequency[x];i++){
+                ans[index++]= x;
+            }
+            frequency[x] = 0;
+        }
+        for (int x = 0; x <=upder;x++){
+            for (int i = 0;i < frequency[x];i++ ){
+                ans[index++] = x;
+            }
+        }
+
+        return ans;
+    }
+
     public static void main(String[] args) {
-//        int[] arr1 = new int[]{2,3,1,3,2,4,6,7,9,2,19};
-//        int[] arr2 = new int[]{2,1,4,3,9,6};
+        int[] arr1 = new int[]{2,3,1,3,2,4,6,7,9,2,19};
+        int[] arr2 = new int[]{2,1,4,3,9,6};
         // 输出   [2,2,2,1,4,3,3,9,6,7,19]
 
-        int[] arr1 = new int[]{2,21,43,38,0,42,33,7,24,13,12,27,12,24,5,23,29,48,30,31};
-        int[] arr2 = new int[]{2,42,38,0,43,21};
+//        int[] arr1 = new int[]{2,21,43,38,0,42,33,7,24,13,12,27,12,24,5,23,29,48,30,31};
+//        int[] arr2 = new int[]{2,42,38,0,43,21};
 
-        Arrays.stream(relativeSortArray(arr1, arr2)).forEach(System.out::println);
+        Arrays.stream(relativeSortArray1(arr1, arr2)).forEach(System.out::println);
     }
 }

@@ -1,6 +1,11 @@
 package com.sh.study.exercise.nine;
 
+import com.sh.study.queue.ArrayQueue;
+
+import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.Deque;
+import java.util.Stack;
 
 /**
  * 905. 按奇偶排序数组
@@ -126,11 +131,48 @@ public class SortArrayByParity {
         return A;
     }
 
+    /**
+     * 两个栈存储错位的奇数偶数，一次遍历中发现错位奇数则与偶数栈顶元素交换，偶数栈空则将该数存入到奇数栈内，反之亦然
+     * 第一次两次遍历：
+     * 第一次遍历的时候，将数据存储到 stack1 和 stack2 中，stack1 存储 奇数，stack2存储 偶数
+     * 分布取出 stack1 和 stack2中的数据。
+     * TODO 没有具体实现，但是以上的方式遍历了两遍，时间复杂度不够友好
+     * TODO 如何优化，只遍历一次链表
+     *
+     * @param A
+     * @return
+     */
+    public static int[] sortArrayByParityII2(int[] A) {
+        if(A == null || A.length == 0){
+            return A;
+        }
+        // 奇数栈
+        Deque<Integer> stack1 = new ArrayDeque<Integer>();
+        // 偶数栈
+        Deque<Integer> stack2 = new ArrayDeque<Integer>();
+        for (int a: A){
+            if (a % 2 == 0) {
+                stack2.push(a);
+            } else {
+                stack1.push(a);
+            }
+        }
+        // 重新生成数据
+        for (int i = 0; i < A.length; i++){
+            if(i%2== 0){
+               A[i] = stack2.pop();
+            } else{
+                A[i] = stack1.pop();
+            }
+        }
+        return A;
+    }
+
     public static void main(String[] args) {
 //        Arrays.stream(sortArrayByParity(new int[]{3, 1, 2, 4})).forEach(System.out::println);
 //        Arrays.stream(sortArrayByParity(new int[]{0,2})).forEach(System.out::println);
 //        Arrays.stream(sortArrayByParityII(new int[]{4,2,5,7})).forEach(System.out::println);
 //        Arrays.stream(sortArrayByParityII(new int[]{4,1,2,1})).forEach(System.out::println);
-        Arrays.stream(sortArrayByParityII1(new int[]{2,3,1,1,4,0,0,4,3,3})).forEach(System.out::println);
+        Arrays.stream(sortArrayByParityII2(new int[]{2,3,1,1,4,0,0,4,3,3})).forEach(System.out::println);
     }
 }
