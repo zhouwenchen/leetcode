@@ -44,9 +44,26 @@ public class MoveZeroes {
         nums[j] = temp;
     }
 
+    /**
+     * 使用快慢指针，第一个 start 如果是0的话，从此位置找到第一个不是0的替换
+     * @date 202011190938
+     * @param nums
+     */
+    public static void moveZeroes1(int[] nums) {
+        int fast = 0;
+        int slow = 0;
+        for (; fast < nums.length;fast++){
+            if(nums[fast] != 0){
+                swap(nums,fast,slow);
+                slow++;
+            }
+        }
+    }
+
     public static void main(String[] args) {
         int[] nums = new int[]{0, 1, 0, 3, 12};
-        moveZeroes(nums);
+//        moveZeroes(nums);
+        moveZeroes1(nums);
         Arrays.stream(nums).forEach(o -> System.out.print(o + "\t"));
     }
 }

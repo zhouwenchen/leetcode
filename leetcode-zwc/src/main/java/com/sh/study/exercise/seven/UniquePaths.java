@@ -38,7 +38,7 @@ public class UniquePaths {
      *                  base case int[] dp = new int[m][n];
      * 状态转移方程式：    i > 0 且 j > 0 :dp[i][j] = dp[i-1][j] + dp[i][j-1];
      *                  i = 0 : dp[0][j] = 1 ;
-     *                  j = 0 : dp[i][0] = 1
+     *                  j = 0 : dp[i][0] = 1moveZeroes
      * @param m
      * @param n
      * @return
