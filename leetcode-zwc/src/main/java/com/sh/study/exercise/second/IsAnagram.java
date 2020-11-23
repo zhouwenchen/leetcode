@@ -77,12 +77,44 @@ public class IsAnagram {
         return true;
     }
 
+    /**
+     * 将两个字符创进行hash映射操作，一个加1，一个减1操作，最后判断hash表中的元素是否都为0
+     * @date 202011221252
+     * @param s
+     * @param t
+     * @return
+     */
+    public static boolean isAnagram2(String s, String t) {
+        if(s.length() != t.length()){
+            return false;
+        }
+        int[] nums = new int[26];
+        for (int i = 0; i < s.length();i++){
+            nums[s.charAt(i)-'a']++;
+        }
+
+        for (int i = 0; i < t.length();i++){
+            nums[t.charAt(i) - 'a']--;
+        }
+        // 再次遍历数组，判断是否元素都为0
+        for (int num: nums){
+            if(num != 0){
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     public static void main(String[] args) {
 //        String s = "anagram";
 //        String t = "nagaram";
-        String s = "anagram";
-        String t = "nagaram";
-        System.out.println(isAnagram1(s, t));
+//        String s = "anagram";
+//        String t = "nagaram";
+
+        String s = "ba";
+        String t = "ab";
+//        System.out.println(isAnagram1(s, t));
+        System.out.println(isAnagram2(s, t));
     }
 }
