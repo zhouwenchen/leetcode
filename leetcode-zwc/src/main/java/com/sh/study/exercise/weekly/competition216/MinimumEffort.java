@@ -1,5 +1,7 @@
 package com.sh.study.exercise.weekly.competition216;
 
+import java.util.Arrays;
+
 /**
  * 5608. 完成所有任务的最少初始能量
  * 给你一个任务数组 tasks ，其中 tasks[i] = [actuali, minimumi] ：
@@ -51,13 +53,28 @@ package com.sh.study.exercise.weekly.competition216;
  * @date ： 2020/11/22 10:58
  */
 public class MinimumEffort {
+
+    /**
+     * 排序，使用
+     * @param tasks
+     * @return
+     */
     public static int minimumEffort(int[][] tasks) {
-        return 0;
+        Arrays.sort(tasks,(a,b)->(b[1]-b[0]) -(a[1]-a[0]));
+        int p = 0;
+        int sum = 0;
+        for (int[] task: tasks){
+            p = Math.max(p,sum+task[1]);
+            sum += task[0];
+        }
+        return p;
     }
 
     public static void main(String[] args) {
         int[][] tasks = new int[][]{
-                {}
+                {1,2},
+                {2,4},
+                {4,8}
         };
         System.out.println(minimumEffort(tasks));
     }
