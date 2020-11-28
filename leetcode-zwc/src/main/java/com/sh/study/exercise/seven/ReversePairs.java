@@ -48,10 +48,66 @@ public class ReversePairs {
         return count;
     }
 
+    /**
+     * https://leetcode-cn.com/problems/reverse-pairs/solution/shou-hua-tu-jie-yi-bu-yi-bu-jie-xi-gui-bing-pai-xu/
+     * @param nums
+     */
+    private static int count = 0;
+    public static int reversePairs1(int[] nums) {
+        if(nums == null || nums.length < 2){
+            return 0;
+        }
+        mergeSort(nums,0,nums.length -1);
+        return count;
+    }
+
+    /**
+     * 归并排序操作
+     * @param nums
+     * @param start
+     * @param end
+     */
+    private static void mergeSort(int[] nums, int start, int end) {
+        if(start == end){
+            return;
+        }
+        int mid = (end - start) / 2 + start;
+        mergeSort(nums,start,mid);
+        mergeSort(nums,mid+1,end);
+        int i = start;
+        int j = mid + 1;
+        while (i <= mid && j <= end){
+            if((long)nums[i] > 2 *(long) nums[j]){
+                count += mid - i + 1;
+                j++;
+            } else{
+                i++;
+            }
+        }
+
+        // 统计完之后合并
+        int[] tempArr = new int[end -start + 1];
+        i = start;
+        j = mid + 1;
+        int idx = 0;
+        while (i <= mid && j <= end){
+            tempArr[idx++] = nums[i] < nums[j]?nums[i++]:nums[j++];
+        }
+        while (i <=mid){
+            tempArr[idx++] = nums[i++];
+        }
+        while (j<=end){
+            tempArr[idx++] = nums[j++];
+        }
+        for (i = 0, j = start;j <=end;i++,j++){
+            nums[j]= tempArr[i];
+        }
+    }
+
     public static void main(String[] args) {
-//        int[] nums = {1, 3, 2, 3, 1}; // 2
+        int[] nums = {1, 3, 2, 3, 1}; // 2
 //        int[] nums = {2,4,3,5,1};
-        int[] nums = {2147483647,2147483647,2147483647,2147483647,2147483647,2147483647};
-        System.out.println(reversePairs(nums));
+//        int[] nums = {2147483647,2147483647,2147483647,2147483647,2147483647,2147483647};
+        System.out.println(reversePairs1(nums));
     }
 }
