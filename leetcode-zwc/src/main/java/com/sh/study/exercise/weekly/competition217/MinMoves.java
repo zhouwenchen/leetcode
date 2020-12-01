@@ -37,11 +37,38 @@ package com.sh.study.exercise.weekly.competition217;
  */
 public class MinMoves {
 
+    /**
+     * 差分数组
+     * TODO 没有搞明白
+     * https://leetcode-cn.com/problems/minimum-moves-to-make-array-complementary/solution/chai-fen-shu-zu-by-xiaobanni/
+     *
+     * @param nums
+     * @param limit
+     * @return
+     */
     public static int minMoves(int[] nums, int limit) {
-        return 0;
+       int n = nums.length;
+       int[] d = new int[2 * limit + 2];
+       for (int i = 0; i < n / 2;i++){
+           int left = 1+ Math.min(nums[i],nums[n-1-i]);
+           int right = limit + Math.max(nums[i],nums[n-1-i]);
+           d[left] -=1;
+           d[right+1] +=1;
+           d[nums[i] + nums[n-1-i]] -=1;
+           d[nums[i] + nums[n-1-i] +1] +=1;
+       }
+       d[2]+=n;
+       int res =d[2];
+        for(int i=3;i<=2*limit;i++){
+            d[i]=d[i]+d[i-1];
+            res=Math.min(res,d[i]);
+        }
+
+        return res;
     }
 
     public static void main(String[] args) {
-//        minMoves();
+        System.out.println(minMoves(new int[]{1, 2, 4, 3}, 4));
+        System.out.println(minMoves(new int[]{1, 2, 4, 3}, 4));
     }
 }
