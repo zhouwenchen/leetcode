@@ -1,7 +1,7 @@
 package com.sh.study.exercise.weekly.competition214;
 
 /**
- * 1649. 通过指令创建有序数组 显示英文描述
+ * 1649. 通过指令创建有序数组
  *
  * 给你一个整数数组 instructions ，你需要根据 instructions 中的元素创建一个有序数组。一开始你有一个空的数组 nums ，你需要 从左到右 遍历 instructions 中的元素，将它们依次插入 nums 数组中。每一次插入操作的 代价 是以下两者的 较小值 ：
  *
