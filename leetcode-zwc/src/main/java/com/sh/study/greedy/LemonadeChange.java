@@ -104,7 +104,8 @@ public class LemonadeChange {
     }
 
     public static void main(String[] args) {
-        int[] bills = new int[]{5,5,5,10,20};
+//        int[] bills = new int[]{5,5,5,10,20};
+        int[] bills = new int[]{5,5,5,5,20,20,5,5,5,5};
         System.out.println(lemonadeChange(bills));
     }
 }
