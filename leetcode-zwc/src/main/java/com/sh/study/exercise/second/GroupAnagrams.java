@@ -44,9 +44,39 @@ public class GroupAnagrams {
         return new ArrayList<>(map.values());
     }
 
+    /**
+     * 使用计数方法
+     * @param strs
+     * @return
+     */
+    public static List<List<String>> groupAnagrams1(String[] strs) {
+        Map<String, List<String>> map = new HashMap<String, List<String>>();
+        for (String str: strs){
+            int[] counts = new int[26];
+            int n = str.length();
+            for (int i = 0; i < n;i++){
+                counts[str.charAt(i)-'a']++;
+            }
+
+            // 将count中出现不为0的作为key存储起来
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < counts.length;i++){
+                if(counts[i] !=0){
+                    sb.append((char) ('a' + i));
+                    sb.append(counts[i]);
+                }
+            }
+            String key = sb.toString();
+            List<String> list = map.getOrDefault(key, new ArrayList<String>());
+            list.add(str);
+            map.put(key,list);
+        }
+        return new ArrayList<List<String>>(map.values());
+    }
+
     public static void main(String[] args) {
         String[] strs = new String[]{"eat", "tea", "tan", "ate", "nat", "bat"};
-        List<List<String>> resultList = groupAnagrams(strs);
+        List<List<String>> resultList = groupAnagrams1(strs);
         resultList.stream().forEach(System.out::println);
     }
 }
