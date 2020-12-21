@@ -40,7 +40,7 @@ import java.util.Map;
  */
 public class GetSumAbsoluteDifferences {
     /**
-     *
+     * TODO 超时操作
      * @param nums
      * @return
      */
@@ -75,9 +75,36 @@ public class GetSumAbsoluteDifferences {
         return result;
     }
 
+    /**
+     * https://leetcode-cn.com/problems/sum-of-absolute-differences-in-a-sorted-array/solution/javashuang-bai-cai-yong-shu-xue-de-si-lu-uueb/
+     * TODO 没怎么搞明白
+     * @date 202012181114
+     *
+     * @param nums
+     * @return
+     */
+    public static int[] getSumAbsoluteDifferences1(int[] nums) {
+        int len = nums.length;
+        int result[] = new int[len];
+        int sum = 0;
+        // 求和
+        for (int num: nums){
+            sum += num;
+        }
+
+        int su = 0;
+        for (int i = 0,j=len; i < len;i++,j--){
+            result[i] = sum - nums[i] * len + (i * nums[i] - su) * 2;
+            su += nums[i];
+        }
+        return result;
+    }
+
+
+
     public static void main(String[] args) {
-        Arrays.stream(getSumAbsoluteDifferences(new int[]{2,3,5})).forEach(System.out::println);
-        Arrays.stream(getSumAbsoluteDifferences(new int[]{1,4,6,8,10})).forEach(System.out::println);
-        Arrays.stream(getSumAbsoluteDifferences(new int[]{1,1,1,1,1,1,1,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,5,5,6,6,6,6,6,6,6,6,7,7,7,7,7,7,7,7,7,7,7,7,8,8,8,8,8,8,9,9,9,9,9,9,10,10,10,11,11,11,11,11,11,11,12,12,12,12,12,12,13,13,13,13,13,13,14,14,14,14,14,14,14,14,14,14,14,14,14,15,15,16,16,16,16,17,17,17,17,17,18,18,18,18,18,18,18,19,19,19,19,19,19,19,20,21,21,21,21,21,21,22,22,22,23,23,23,23,24,24,24,24,24,24,25,25,25,25,25,26,26,26,26,27,27,27,27,27,27,27,28,28,28,28,29,29,29,29,29,29,29,29,29,30,30,30,31,31,31,31,31,31,31,32,32,32,33,33,33,})).forEach(System.out::println);
+        Arrays.stream(getSumAbsoluteDifferences1(new int[]{2,3,5})).forEach(System.out::println);
+        Arrays.stream(getSumAbsoluteDifferences1(new int[]{1,4,6,8,10})).forEach(System.out::println);
+//        Arrays.stream(getSumAbsoluteDifferences1(new int[]{1,1,1,1,1,1,1,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,5,5,6,6,6,6,6,6,6,6,7,7,7,7,7,7,7,7,7,7,7,7,8,8,8,8,8,8,9,9,9,9,9,9,10,10,10,11,11,11,11,11,11,11,12,12,12,12,12,12,13,13,13,13,13,13,14,14,14,14,14,14,14,14,14,14,14,14,14,15,15,16,16,16,16,17,17,17,17,17,18,18,18,18,18,18,18,19,19,19,19,19,19,19,20,21,21,21,21,21,21,22,22,22,23,23,23,23,24,24,24,24,24,24,25,25,25,25,25,26,26,26,26,27,27,27,27,27,27,27,28,28,28,28,29,29,29,29,29,29,29,29,29,30,30,30,31,31,31,31,31,31,31,32,32,32,33,33,33,})).forEach(System.out::println);
     }
 }

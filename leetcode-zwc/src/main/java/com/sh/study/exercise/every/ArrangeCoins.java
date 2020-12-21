@@ -60,10 +60,37 @@ public class ArrangeCoins {
         return i-2;
     }
 
+    /**
+     * @date 202012181125
+     * @param n
+     * @return
+     */
+    public static int arrangeCoins1(int n) {
+        if(n==0){
+            return 0;
+        }
+        if(n ==1 || n==2){
+            return 1;
+        }
+        if(n==3){
+            return 2;
+        }
+        int result = 0;
+        long sum = 0;
+        for (int i = 0; i < n;i++){
+            sum += i;
+            if(sum > n){
+                result = i -1;
+                break;
+            }
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
-        System.out.println(arrangeCoins(5));
-        System.out.println(arrangeCoins(8));
-//        System.out.println(arrangeCoins(2147483647));
-//        System.out.println(65535 + 65535 > 65535);
+        System.out.println(arrangeCoins1(5));
+        System.out.println(arrangeCoins1(8));
+        System.out.println(arrangeCoins1(2147483647));
+        System.out.println(65535 + 65535 > 65535);
     }
 }

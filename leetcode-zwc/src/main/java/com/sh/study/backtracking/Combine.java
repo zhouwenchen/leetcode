@@ -1,6 +1,8 @@
 package com.sh.study.backtracking;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 
 /**
@@ -25,12 +27,29 @@ import java.util.List;
 public class Combine {
     public static List<List<Integer>> combine(int n, int k) {
         List<List<Integer>> res = new ArrayList<>();
-        if(k == 0){
+        if(k <= 0 || n < k){
             return res;
         }
-//        backtracking(res,);
+        // 从1 开始是题目设定的
+        Deque<Integer> path = new ArrayDeque<>();
+        dfs(n,k,1,path,res);
 
-        return null;
+        return res;
+    }
+
+    private static void dfs(int n, int k, int start, Deque<Integer> path, List<List<Integer>> res) {
+        // 终止的条件
+        if(path.size() == k){
+            res.add(new ArrayList<>(path));
+            return;
+        }
+        // 循环调用的结果
+        for (int i = start; i <=n;i++){
+            // 剪枝操作
+            path.add(i);
+            dfs(n,k,i+1,path,res);
+            path.removeLast();
+        }
     }
 
     public static void main(String[] args) {

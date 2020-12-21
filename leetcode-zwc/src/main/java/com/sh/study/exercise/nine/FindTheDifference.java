@@ -48,15 +48,42 @@ public class FindTheDifference {
         return (char)((char)result + 32);
     }
 
+    /**
+     * 基于计数的方式实现
+     * @date 20201218
+     * @param s
+     * @param t
+     * @return
+     */
+    public static char findTheDifference1(String s, String t) {
+        int[] nums = new int[26];
+        for (char s1: s.toCharArray()){
+            nums[s1-'a']++;
+        }
+        for (char t1: t.toCharArray()){
+            nums[t1-'a']--;
+        }
+        //再次遍历，等于-1或者1的
+        for (int i = 0; i < 26;i++){
+            if(nums[i] == 1 || nums[i] == -1){
+                return (char) (i + 'a');
+            }
+        }
+        return ' ';
+    }
+
     public static void main(String[] args) {
-        System.out.println(findTheDifference("abcd", "abcde"));
-        System.out.println(findTheDifference("a", "aa"));
-        System.out.println(findTheDifference("ae", "aea"));
-        System.out.println(findTheDifference("", "y"));
+        System.out.println(findTheDifference1("abcd", "abcde"));
+        System.out.println(findTheDifference1("a", "aa"));
+        System.out.println(findTheDifference1("ae", "aea"));
+        System.out.println(findTheDifference1("", "y"));
+        System.out.println(findTheDifference1("", ""));
 //        System.out.println('a'^'b');
 
 //        System.out.println(((char)('a'^'b'^'c'^'a'^'b'^'c'^'a')));
         System.out.println((('a'^'a')));
+
+        System.out.println('a' -'a');
 
     }
 }
