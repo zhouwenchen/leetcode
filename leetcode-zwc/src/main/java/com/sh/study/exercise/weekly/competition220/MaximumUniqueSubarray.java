@@ -1,5 +1,7 @@
 package com.sh.study.exercise.weekly.competition220;
 
+import java.util.*;
+
 /**
  *
  * 5630. 删除子数组的最大得分
@@ -32,12 +34,62 @@ package com.sh.study.exercise.weekly.competition220;
  * @date ： 2020/12/20 11:09
  */
 public class MaximumUniqueSubarray {
-
+    /**
+     * 使用 set 操作
+     * @param nums
+     * @return
+     */
     public static int maximumUniqueSubarray(int[] nums) {
-        return 0;
+        Set<Integer> set = new HashSet<>();
+        int max = 0,sum = 0,start =0;
+        for (int i = 0; i < nums.length;i++){
+            if(!set.contains(nums[i])){
+                set.add(nums[i]);
+                sum += nums[i];
+                max = Math.max(sum,max);
+            } else {
+                while (nums[i]  != nums[start]){
+                    sum -= nums[start];
+                    set.remove(nums[start]);
+                    start++;
+                }
+                start++;
+            }
+        }
+        return max;
+    }
+
+    /**
+     * 滑动窗口
+     * @param nums
+     * @return
+     */
+    public static int maximumUniqueSubarray1(int[] nums) {
+        // 创建窗口
+        Map<Integer,Integer> window = new HashMap<>();
+        int left = 0, right = 0;
+        int res = 0, cur = 0;
+        while (right < nums.length){
+            // 向右扩张
+            int k = nums[right++];
+            window.put(k,window.getOrDefault(k,0) + 1);
+            cur += k;
+
+            // 3判断是否需要左侧收缩
+            while (window.get(k) > 1){
+                int d = nums[left++];
+                window.put(d,window.get(d)-1);
+                cur -= d;
+            }
+            res = Math.max(res,cur);
+        }
+        return res;
     }
 
     public static void main(String[] args) {
         System.out.println(maximumUniqueSubarray(new int[]{4, 2, 4, 5, 6}));
+        System.out.println(maximumUniqueSubarray(new int[]{5,2,1,2,5,2,1,2,5}));
+        System.out.println(maximumUniqueSubarray1(new int[]{4, 2, 4, 5, 6}));
+        System.out.println(maximumUniqueSubarray1(new int[]{5,2,1,2,5,2,1,2,5}));
     }
 }
