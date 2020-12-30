@@ -2,6 +2,7 @@ package com.sh.study.exercise.weekly.competition221;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.PriorityQueue;
 
 /**
  *
@@ -46,25 +47,45 @@ import java.util.Map;
  * @date ： 2020/12/27 10:40
  */
 public class EatenApples {
-    //
+    /**
+     * 使用优先级队列，队首是最早过期的，int[0]：苹果个数 ; int[1]：过期时间
+     *  1：移除过期时间
+     *  2：添加当天新长出来的
+     *  3：吃掉已有的（优先吃最早过期的）
+     *
+     * @param apples
+     * @param days
+     * @return
+     */
     public static int eatenApples(int[] apples, int[] days) {
-        // int[] nums = new int[apples.length]; 表示第i天总共剩余多少苹果，
-        Map<Integer,Integer> nums = new HashMap<>();
-        int result = 0;
-        int total = 0;
-        for (int i = 0; i < apples.length;i++){
-            if(apples[i]-- > -1){
-                result +=1;
+        // 使用优先队列，队首是最早过期的，
+        PriorityQueue<int[]> queue = new PriorityQueue<>((o1,o2)->o1[1] < o1[1]? -1:1);
+        int eatNum = 0;
+        for (int i = 0; i < apples.length || !queue.isEmpty();i++){
+            // 1:移除过期的
+            while (!queue.isEmpty()){
+                if(queue.peek()[1] > i){
+                    break;
+                }
+                queue.poll();
             }
-            if(days[i]-- == 0){
 
+            // 2:添加新长出来的
+            if(i < apples.length && apples[i] > 0){
+                queue.add(new int[]{apples[i],days[i] + i});
             }
-            nums.put(apples[i],days[i]);
-            // 剩余多少
-            total = apples[i] + nums.get(i);
 
+            // 3:吃掉已有的，（优先吃最早过期的）
+            int[] ap = queue.peek();
+            if(ap != null && ap[0] > 0){
+                eatNum++;
+                ap[0] -= 1;
+                if(ap[0] == 0){
+                    queue.poll();
+                }
+            }
         }
-        return result;
+        return eatNum;
     }
 
     public static void main(String[] args) {
