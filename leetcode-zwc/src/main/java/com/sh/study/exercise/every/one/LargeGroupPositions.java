@@ -106,8 +106,8 @@ public class LargeGroupPositions {
     }
 
     public static void main(String[] args) {
-//        largeGroupPositions("aaa").stream().forEach(System.out::println);        //[[0,2]]
+        largeGroupPositions("aaa").stream().forEach(System.out::println);        //[[0,2]]
         largeGroupPositions1("abbxxxxzzy").stream().forEach(System.out::println);        //[[3,6]]
-//        largeGroupPositions("abcdddeeeeaabbbcd").stream().forEach(System.out::println); // [[3,5],[6,9],[12,14]]
+        largeGroupPositions("abcdddeeeeaabbbcd").stream().forEach(System.out::println); // [[3,5],[6,9],[12,14]]
     }
 }
