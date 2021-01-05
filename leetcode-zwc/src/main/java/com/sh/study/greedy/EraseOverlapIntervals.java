@@ -1,9 +1,6 @@
 package com.sh.study.greedy;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * 435. 无重叠区间
@@ -76,12 +73,34 @@ public class EraseOverlapIntervals {
         return deletecount;
     }
 
+    public static int eraseOverlapIntervals1(int[][] intervals) {
+        if(intervals.length == 0){
+            return 0;
+        }
+        // 排序
+        Arrays.sort(intervals,(o1, o2) -> o1[0] > o2[0] ? 1 : -1);
+        int n = intervals.length;
+        int[] arr = new int[n];
+        Arrays.fill(arr,1);
+        for (int i = 1;i < n;++i){
+            for (int j = 0;j < i;++j){
+                if(intervals[j][1] <= intervals[i][0]){
+                    arr[i] = Math.max(arr[i],arr[j]+1);
+                }
+            }
+        }
+
+        return n - Arrays.stream(arr).max().getAsInt();
+    }
+
     public static void main(String[] args) {
 //        int[][] intervals = new int[][]{{1,2}, {2,3}};
-//        int[][] intervals = new int[][]{ {1,2}, {2,3}, {3,4}, {1,3} };
+        int[][] intervals = new int[][]{ {1,2}, {2,3}, {3,4}, {1,3} };
 //        int[][] intervals = new int[][]{ {1,2}, {1,2}, {1,2}, {1,2} };
-        int[][] intervals = new int[][]{{1,100},{11,22},{1,11},{2,12} };
-        int min = eraseOverlapIntervals(intervals);
-        System.out.println(min);
+//        int[][] intervals = new int[][]{{1,100},{11,22},{1,11},{2,12} };
+//        int min = eraseOverlapIntervals(intervals);
+//        System.out.println(min);
+
+        System.out.println(eraseOverlapIntervals1(intervals));
     }
 }
