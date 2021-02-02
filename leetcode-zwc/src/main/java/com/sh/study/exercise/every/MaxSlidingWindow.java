@@ -8,7 +8,7 @@ import java.util.PriorityQueue;
  */
 public class MaxSlidingWindow {
     public int[] maxSlidingWindow(int[] nums, int k) {
-        PriorityQueue<Integer> queue = new PriorityQueue<Integer>((o1, o2) -> o1 != o2 ?o1[0]-o2[0]:1);
+//        PriorityQueue<Integer> queue = new PriorityQueue<Integer>((o1, o2) -> o1 != o2 ?o1[0]-o2[0]:1);
         return null;
     }
 
