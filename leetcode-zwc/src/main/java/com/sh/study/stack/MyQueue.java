@@ -87,7 +87,6 @@ public class MyQueue {
         System.out.println(queue.pop());
         System.out.println(queue.empty());
     }
-
 }
 
 /**
