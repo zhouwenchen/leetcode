@@ -314,6 +314,72 @@ public class Traversal {
         return resultList;
     }
 
+    /**
+     * 20210305 层次遍历，同上的操作
+     * 使用队列实现操作，
+     * @param root
+     * @return
+     */
+    public static List<List<Integer>> levelOrder2(TreeNode root) {
+        List<List<Integer>> resultList = new ArrayList<List<Integer>>();
+        if(root == null){
+            return resultList;
+        }
+        LinkedList<TreeNode> queue = new LinkedList<TreeNode>();
+        queue.addLast(root);
+        while (!queue.isEmpty()){
+            int size = queue.size();
+            List<Integer> tmp = new ArrayList<>();
+            while (size-- > 0){
+                TreeNode node = queue.pollFirst();
+                tmp.add(node.val);
+                if(node.left != null){
+                    queue.addLast(node.left);
+                }
+                if(node.right != null){
+                    queue.addLast(node.right);
+                }
+            }
+            resultList.add(tmp);
+
+        }
+        return resultList;
+    }
+
+    /**
+     * 20210305 层次遍历，同上的操作
+     * 不使用队列实现，使用两个 Arraylist 实现操作
+     * @param root
+     * @return
+     */
+    public static List<List<Integer>> levelOrder3(TreeNode root) {
+        List<List<Integer>> resultList = new ArrayList<List<Integer>>();
+        if(root == null){
+            return resultList;
+        }
+        List<TreeNode> curLevel = new ArrayList<>();
+        curLevel.add(root);
+        while (curLevel.size() > 0){
+            // 准备存放下一层的节点
+            List<TreeNode> nextLevel = new ArrayList<>();
+            // 存放当前行的结果结果
+            List<Integer> curVal = new ArrayList<>();
+           for (TreeNode node: curLevel){
+               curVal.add(node.val);
+               if(node.left != null){
+                   nextLevel.add(node.left);
+               }
+               if(node.right != null){
+                   nextLevel.add(node.right);
+               }
+           }
+            curLevel = nextLevel;
+           resultList.add(curVal);
+        }
+
+        return resultList;
+    }
+
     public static void main(String[] args) {
         TreeNode node1 = new TreeNode(1);
         TreeNode node2 = new TreeNode(2);
@@ -335,11 +401,14 @@ public class Traversal {
 //		node7.right = node8;
 //		List<Integer> list = inorderTraversal1(node1);
 //		List<Integer> list = inorderTraversal(node1);
- 		List<Integer> list = postorderTraversal2(node1);
+// 		List<Integer> list = postorderTraversal2(node1);
 // 		List<Integer> list = levelTraverse(node1);
 //        List<List<Integer>> list = levelOrder(node1);
 //        List<Integer> list = preorderTraversal2(node1);
-        list.stream().forEach( o -> System.out.print(o + " "));
+//        list.stream().forEach( o -> System.out.print(o + " "));
+
+//        levelOrder2(node1).stream().forEach(System.out::println);
+        levelOrder3(node1).stream().forEach(System.out::println);
 
 
     }
