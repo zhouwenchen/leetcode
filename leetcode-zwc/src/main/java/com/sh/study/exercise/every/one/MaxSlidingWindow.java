@@ -1,9 +1,6 @@
 package com.sh.study.exercise.every.one;
 
-import java.util.Arrays;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.PriorityQueue;
+import java.util.*;
 
 /**
  * 239. 滑动窗口最大值
@@ -155,9 +152,50 @@ public class MaxSlidingWindow {
         return ans;
     }
 
+    /**
+     * 单调队列实现
+     * https://kaiwu.lagou.com/course/courseInfo.htm?courseId=685#/detail/pc?id=6691
+     * @param nums
+     * @param k
+     * @date 20210309
+     * @return
+     */
+    private static Deque<Integer> deque = new ArrayDeque<>();
+    public static int[] maxSlidingWindow3(int[] nums, int k) {
+        List<Integer> ans = new ArrayList<>();
+        for (int i = 0; i < nums.length; i++) {
+            push(nums[i]);
+            // 如果此时队列中的元素小于 k 个的话，还不能去获取最值
+            if(i < k -1){
+                continue;
+            }
+            // 队首元素就是最大值
+            ans.add(deque.getFirst());
+            // 尝试去除元素
+            pop(nums[i-k+1]);
+        }
+        return ans.stream().mapToInt(Integer::valueOf).toArray();
+    }
+
+    // 队列需要保证单调递减
+    private static void push(int value){
+        while (!deque.isEmpty() && deque.getLast() < value){
+            deque.removeLast();
+        }
+        deque.addLast(value);
+    }
+
+    // 当元素相同的时候，从队列的队首出队操作
+    private static void pop(int value){
+        if(deque.getFirst() == value){
+            deque.removeFirst();
+        }
+    }
     public static void main(String[] args) {
 //        Arrays.stream(maxSlidingWindow1(new int[]{1, 3, -1, -3, 5, 3, 6, 7}, 3)).forEach(System.out::println);
 //        Arrays.stream(maxSlidingWindow1(new int[]{1}, 1)).forEach(System.out::println);
-        Arrays.stream(maxSlidingWindow2(new int[]{1, 3, -1, -3, 5, 3, 6, 7}, 3)).forEach(System.out::println);
+        Arrays.stream(maxSlidingWindow2(new int[]{1, 3, -1, -3, 5, 3, 6, 7}, 3)).forEach(o-> System.out.print(o + "\t"));
+        System.out.println("");
+        Arrays.stream(maxSlidingWindow3(new int[]{1, 3, -1, -3, 5, 3, 6, 7}, 3)).forEach(o-> System.out.print(o + "\t"));
     }
 }
