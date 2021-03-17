@@ -1,5 +1,6 @@
 package com.sh.study.exercise.three;
 
+import java.net.Inet4Address;
 import java.util.*;
 
 /**
@@ -103,10 +104,112 @@ public class TopKFrequent {
         return result;
     }
 
+    /**
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public static int[] topKFrequent2(int[] nums, int k) {
+        Map<Integer,Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            map.put(nums[i],map.getOrDefault(nums[i],0)+1);
+        }
+        PriorityQueue<Integer> priorityQueue = new PriorityQueue<Integer>((o1,o2) ->map.get(o1) - map.get(02));
+
+        for (Integer key: map.keySet()){
+            if(priorityQueue.size() < k){
+                priorityQueue.add(key);
+            } else if(map.get(key) > map.get(priorityQueue.peek())){
+                priorityQueue.remove();
+                priorityQueue.add(key);
+            }
+        }
+
+        int[] result = new int[k];
+        for(int i = 0; i < result.length;i++){
+            while (!priorityQueue.isEmpty()) {
+                result[i] = priorityQueue.remove();
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 692. 前K个高频单词
+     * 给一非空的单词列表，返回前 k 个出现次数最多的单词。
+     *
+     * 返回的答案应该按单词出现频率由高到低排序。如果不同的单词有相同出现频率，按字母顺序排序。
+     *
+     * 示例 1：
+     *
+     * 输入: ["i", "love", "leetcode", "i", "love", "coding"], k = 2
+     * 输出: ["i", "love"]
+     * 解析: "i" 和 "love" 为出现次数最多的两个单词，均为2次。
+     *     注意，按字母顺序 "i" 在 "love" 之前。
+     *
+     *
+     * 示例 2：
+     *
+     * 输入: ["the", "day", "is", "sunny", "the", "the", "the", "sunny", "is", "is"], k = 4
+     * 输出: ["the", "is", "sunny", "day"]
+     * 解析: "the", "is", "sunny" 和 "day" 是出现次数最多的四个单词，
+     *     出现次数依次为 4, 3, 2 和 1 次。
+     *
+     *
+     * 注意：
+     *
+     * 假定 k 总为有效值， 1 ≤ k ≤ 集合元素数。
+     * 输入的单词均由小写字母组成。
+     *
+     * @param words
+     * @param k
+     * @return
+     */
+    public static List<String> topKFrequent4(String[] words, int k) {
+        if(words == null){
+            return new ArrayList<>();
+        }
+        Map<String,Integer> map = new HashMap<>();
+        for (int i = 0; i < words.length; i++) {
+            map.put(words[i],map.getOrDefault(words[i],0)+1);
+        }
+        List<String> candidates = new ArrayList<>(map.keySet());
+        candidates.sort((w1, w2) -> map.get(w1).equals(map.get(w2)) ? w1.compareTo(w2) : map.get(w2) - map.get(w1));
+        candidates.subList(0, k);
+
+//        PriorityQueue<String> queue = new PriorityQueue<String>((o1, o2) -> map.get(o1) - map.get(o2));
+//        for(String word: map.keySet()) {
+//            if(queue.size() < k){
+//                queue.add(word);
+//            }else if(map.get(word) > map.get(queue.peek())){
+//                queue.remove();
+//                queue.add(word);
+//            }else if(map.get(word) == map.get(queue.peek()) && word.charAt(0) < queue.peek().charAt(0) ){
+//                queue.remove();
+//                queue.add(word);
+//            }
+//        }
+//
+//        List<String> result = new ArrayList<>();
+//       while (!queue.isEmpty()){
+//           result.add(queue.);
+//       }
+//        Collections.reverse(result);
+        return candidates.subList(0, k);
+    }
+
     public static void main(String[] args) {
 //        int[] nums = new int[]{1, 1, 1, 2, 2, 3};
-        int[] nums = new int[]{4,1,-1,2,-1,2,3};
-        int[] result = topKFrequent1(nums, 2);
-        Arrays.stream(result).forEach(System.out::println);
+//        int[] nums = new int[]{4,1,-1,2,-1,2,3};
+//        int[] result = topKFrequent1(nums, 2);
+//        int[] result = topKFrequent2(nums, 2);
+//        Arrays.stream(result).forEach(System.out::println);
+
+//        List<String> result = topKFrequent4(new String[]{"i", "love", "leetcode", "i", "love", "coding"}, 2);
+        List<String> result = topKFrequent4(new String[]{"i", "love", "leetcode", "i", "love", "coding"}, 3);
+//        List<String> result = topKFrequent4(new String[]{"the", "day", "is", "sunny", "the", "the", "the", "sunny", "is", "is"}, 4);
+        result.stream().forEach(o-> System.out.print(o + "\t"));
+//        System.out.println('i'-'l');
     }
 }
