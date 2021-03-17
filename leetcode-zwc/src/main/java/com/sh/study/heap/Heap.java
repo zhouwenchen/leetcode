@@ -31,4 +31,37 @@ public class Heap {
         // 将t放在找到的位置那里
         a[i] = t;
     }
+
+    public void swim(int i){
+        int t = a[i];
+        int par = 0;
+        // 如果还存在父节点的话
+        while (i > 0 && (par = (i-1)>> 1) != i){
+            // 如果父节点比 t 小
+            if(a[par] < t){
+                a[i] = a[par];
+                i = par;
+            }else {
+                break;
+            }
+        }
+        a[i] = t;
+    }
+
+    public void push(int v){
+        // push元素，是先将元素追加到数组尾巴上，然后再执行上浮操作
+        a[n++] = v;
+        swim(n-1);
+    }
+
+    public int pop(){
+        int ret = a[0];
+        a[0] = a[--n];
+        a[0] = a[--n];
+        sink(0);
+        return ret;
+    }
+    public int size() {
+        return n;
+    }
 }
