@@ -177,25 +177,6 @@ public class TopKFrequent {
         List<String> candidates = new ArrayList<>(map.keySet());
         candidates.sort((w1, w2) -> map.get(w1).equals(map.get(w2)) ? w1.compareTo(w2) : map.get(w2) - map.get(w1));
         candidates.subList(0, k);
-
-//        PriorityQueue<String> queue = new PriorityQueue<String>((o1, o2) -> map.get(o1) - map.get(o2));
-//        for(String word: map.keySet()) {
-//            if(queue.size() < k){
-//                queue.add(word);
-//            }else if(map.get(word) > map.get(queue.peek())){
-//                queue.remove();
-//                queue.add(word);
-//            }else if(map.get(word) == map.get(queue.peek()) && word.charAt(0) < queue.peek().charAt(0) ){
-//                queue.remove();
-//                queue.add(word);
-//            }
-//        }
-//
-//        List<String> result = new ArrayList<>();
-//       while (!queue.isEmpty()){
-//           result.add(queue.);
-//       }
-//        Collections.reverse(result);
         return candidates.subList(0, k);
     }
 
