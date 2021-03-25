@@ -2,6 +2,7 @@ package com.sh.study.exercise.first;
 
 
 import com.sh.study.node.ListNode;
+import com.sh.study.util.NodeUtil;
 
 /**
  * 21. 合并两个有序链表
@@ -50,28 +51,43 @@ public class MergeTwoLists {
         return head.next;
     }
 
-    public static void main(String[] args) {
-        ListNode node1 = new ListNode(1);
-        ListNode node2 = new ListNode(2);
-        ListNode node4 = new ListNode(4);
-        ListNode node5 = new ListNode(5);
-        node1.next = node2;
-        node2.next = node4;
-        node4.next = node5;
-
-        ListNode node11 = new ListNode(1);
-        ListNode node3 = new ListNode(3);
-        ListNode node44 = new ListNode(4);
-        node11.next = node3;
-        node3.next = node44;
-
-        ListNode listNode = mergeTwoLists(node1, node11);
-        if(listNode != null){
-            while (listNode != null){
-                System.out.print(listNode.val + "->");
-                listNode = listNode.next;
-            }
-            System.out.println("->null");
+    /**
+     * 202103231133
+     * @param node1
+     * @param node2
+     * @return
+     */
+    public static ListNode mergeTwoLists1(ListNode node1, ListNode node2) {
+        if(node1 == null){
+            return node2;
         }
+        if(node2 == null){
+            return node1;
+        }
+        ListNode dumy = new ListNode(-1);
+        ListNode tail = dumy;
+        while (node1 != null || node2 != null){
+            if(node2 == null || node1 != null && node1.val < node2.val){
+                tail.next = node1;
+                tail = node1;
+                node1 = node1.next;
+            } else {
+                tail.next = node2;
+                tail = node2;
+                node2 = node2.next;
+            }
+
+        }
+        tail.next = null;
+        return dumy.next;
+    }
+
+    public static void main(String[] args) {
+
+        ListNode node1 = NodeUtil.createListNodeByArr(new int[]{1, 2, 4, 5});
+        ListNode node2 = NodeUtil.createListNodeByArr(new int[]{1, 3, 4});
+//        ListNode result = mergeTwoLists(node1, node2);
+        ListNode result = mergeTwoLists1(node1, node2);
+        NodeUtil.printListNode(result);
     }
 }
