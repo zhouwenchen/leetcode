@@ -83,10 +83,28 @@ public class ReverseList {
         return p;
     }
 
+    /**
+     *  建立一个新的带假头的新链表
+     * 20210322
+     * @param head
+     * @return
+     */
+    public static ListNode reverseList3(ListNode head) {
+        ListNode dumy = new ListNode(-1);
+        while (head != null){
+            ListNode tmp = head.next;
+            // 把旧链表中的结点取出来，采用头部插入的方法添加到新链表中
+            head.next = dumy.next;
+            dumy.next = head;
+            head = tmp;
+        }
+        return dumy.next;
+    }
 
     public static void main(String[] args) {
         ListNode headNode = NodeUtil.createListNode(5);
-        ListNode head = reverseList2(headNode);
+//        ListNode head = reverseList2(headNode);
+        ListNode head = reverseList3(headNode);
         NodeUtil.printListNode(head);
     }
 }
