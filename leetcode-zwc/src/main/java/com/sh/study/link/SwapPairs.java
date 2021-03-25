@@ -91,9 +91,10 @@ public class SwapPairs {
     }
 
     public static void main(String[] args) {
-//        ListNode root = NodeUtil.createListNodeByArr(new int[]{1, 2, 3, 4}); //4->3->2->1->null
-        ListNode root = NodeUtil.createListNodeByArr(new int[]{1, 2, 3, 4,5});
-        ListNode result = swapPairs2(root);
+        ListNode root = NodeUtil.createListNodeByArr(new int[]{1, 2, 3, 4}); //4->3->2->1->null
+//        ListNode root = NodeUtil.createListNodeByArr(new int[]{1, 2, 3, 4,5});
+//        ListNode result = swapPairs2(root);
+        ListNode result = swapPairs1(root);
         NodeUtil.printListNode(result);
     }
 }
