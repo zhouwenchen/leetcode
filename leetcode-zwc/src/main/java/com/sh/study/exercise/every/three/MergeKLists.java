@@ -3,10 +3,7 @@ package com.sh.study.exercise.every.three;
 import com.sh.study.node.ListNode;
 import com.sh.study.util.NodeUtil;
 
-import javax.management.Query;
-import java.util.List;
 import java.util.PriorityQueue;
-import java.util.Queue;
 
 /**
  * 23. 合并K个升序链表
@@ -41,6 +38,7 @@ public class MergeKLists {
 
     /**
      * 将数组中的数据存入到优先级队列中
+     * 小顶堆
      * @param lists
      * @return
      */
@@ -70,7 +68,7 @@ public class MergeKLists {
     }
 
     public static void main(String[] args) {
-        ListNode list1 = NodeUtil.createListNodeByArr(new int[]{1, 4, 5});
+        ListNode list1 = NodeUtil.createListNodeByArr(new int[]{1,4,5});
         ListNode list2 = NodeUtil.createListNodeByArr(new int[]{1,3,4});
         ListNode list3 = NodeUtil.createListNodeByArr(new int[]{2,6});
         ListNode[] lists = new ListNode[]{list1,list2,list3};
