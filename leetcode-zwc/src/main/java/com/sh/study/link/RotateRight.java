@@ -66,14 +66,87 @@ public class RotateRight {
         return cur;
     }
 
-    public static void main(String[] args) {
-//        ListNode head = NodeUtil.createListNodeByArr(new int[]{1, 2, 3, 4, 5});
-//        ListNode resultNode = rotateRight(head, 2);
-//        ListNode head = NodeUtil.createListNodeByArr(new int[]{0,1, 2});
-//        ListNode resultNode = rotateRight(head, 4);
+    /**
+     * 使用,first 先遍历 k 步，然sencode 从 head位置进行遍历
+     * 如果sencode 的
+     *
+     * @param head
+     * @param k
+     * @return
+     */
+    public static ListNode rotateRight1(ListNode head, int k) {
+        if(head == null || k == 0){
+            return head;
+        }
+        int len = 0;
+        ListNode dumy = new ListNode(-1);
+        dumy.next = head;
+        ListNode first = dumy;
+        ListNode sencode = dumy;
 
-        ListNode head = NodeUtil.createListNodeByArr(new int[]{1});
-        ListNode resultNode = rotateRight(head, 1);
+        // 链尾节点
+        ListNode tail = dumy;
+        ListNode pre = dumy;
+        for (int i = 0; i < k; ){
+            if(first.next == null){
+                // 说明此时，k > head.size,重置所有的初始化条件
+                k = k % i;
+                i = 0;
+                first = dumy;
+                continue;
+            }
+           first = first.next;
+            i++;
+        }
+
+        while (first != null){
+            pre = sencode;
+            if(first.next != null){
+                tail = first.next;
+            }
+            first = first.next;
+            sencode = sencode.next;
+        }
+        if(pre != tail){
+            pre.next = null;
+            tail.next = head;
+            dumy.next = sencode;
+        }
+        return dumy.next;
+    }
+
+    public static ListNode rotateRight2(ListNode head, int k) {
+        if(k == 0 || head == null || head.next == null){
+            return head;
+        }
+        int n = 1;
+        ListNode iter = head;
+        while (iter.next != null){
+            iter = iter.next;
+            n++;
+        }
+
+        int add = n - k % n;
+        if(add == n){
+            return head;
+        }
+        iter.next = head;
+        while (add -- > 0){
+            iter = iter.next;
+        }
+        ListNode ret = iter.next;
+        iter.next = null;
+        return ret;
+    }
+
+    public static void main(String[] args) {
+        ListNode head = NodeUtil.createListNodeByArr(new int[]{1, 2, 3, 4, 5});
+        ListNode resultNode = rotateRight2(head, 2);
+//        ListNode head = NodeUtil.createListNodeByArr(new int[]{0,1, 2});
+//        ListNode resultNode = rotateRight1(head, 4);
+
+//        ListNode head = NodeUtil.createListNodeByArr(new int[]{1});
+//        ListNode resultNode = rotateRight1(head, 1);
         NodeUtil.printListNode(resultNode);
     }
 }
