@@ -112,6 +112,38 @@ public class Traversal {
         return resultList;
     }
 
+    /**
+     * @date 20210326
+     * @param root
+     * @return
+     */
+    public static List<Integer> preorderTraversal3(TreeNode root) {
+        // 使用栈来遍历二叉树
+        if(root == null){
+            return null;
+        }
+        List<Integer> result = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        while (root != null || !stack.isEmpty()){
+            // 模拟递归
+            while (root != null){
+                result.add(root.val);
+                stack.push(root);
+                root = root.left;
+            }
+            // 出栈
+            root = stack.peek();
+            stack.pop();
+            root = root.right;
+        }
+        return result;
+    }
+
+    public List<Integer> preorderTraversal4(TreeNode root) {
+
+        return null;
+    }
+
     // TODO ===========================
 
     /**
@@ -408,7 +440,9 @@ public class Traversal {
 //        list.stream().forEach( o -> System.out.print(o + " "));
 
 //        levelOrder2(node1).stream().forEach(System.out::println);
-        levelOrder3(node1).stream().forEach(System.out::println);
+        preorderTraversal3(node1).stream().forEach(o-> System.out.print(o + "\t"));
+        System.out.println();
+        preorderTraversal2(node1).stream().forEach(o-> System.out.print(o + "\t"));
 
 
     }
