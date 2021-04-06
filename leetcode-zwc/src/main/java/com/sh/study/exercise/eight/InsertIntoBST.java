@@ -83,6 +83,18 @@ public class InsertIntoBST {
         return root;
     }
 
+    public static TreeNode insertIntoBST1(TreeNode root, int val) {
+        if(root == null){
+            return new TreeNode(val);
+        }
+        if(val < root.val){
+            root.left = insertIntoBST1(root.left,val);
+        }else if(val > root.val){
+            root.right = insertIntoBST1(root.right,val);
+        }
+        return root;
+    }
+
     public static void main(String[] args) {
 //        TreeNode root = NodeUtil.createTreeNodeByArr(new int[]{1, 2, 3, 4, 5, 6});
 //        int val = 7;
@@ -108,6 +120,7 @@ public class InsertIntoBST {
         node28.right = node43;
         int val = 1;
         TreeNode resultNode = insertIntoBST(node55, val);
+        TreeNode resultNode1 = insertIntoBST1(node55, val);
 
         /**
          * 1：特殊测试案例
@@ -124,5 +137,7 @@ public class InsertIntoBST {
 
         // 层序遍历
         NodeUtil.printTreeNodeByLevelOrder(resultNode);
+        System.out.println();
+        NodeUtil.printTreeNodeByLevelOrder(resultNode1);
     }
 }
