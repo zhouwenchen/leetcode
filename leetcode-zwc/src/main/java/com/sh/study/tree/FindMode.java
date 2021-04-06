@@ -1,8 +1,10 @@
 package com.sh.study.tree;
 
+import com.sh.study.node.ListNode;
 import com.sh.study.node.TreeNode;
 import com.sh.study.util.NodeUtil;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -74,11 +76,61 @@ public class FindMode {
         }
     }
 
+    /**
+     * 20210330
+     * 中序遍历，完成的数据是有序的
+     * @param root
+     * @return
+     */
+    public static int[] findMode1(TreeNode root) {
+        if(root == null){
+            return null;
+        }
+        Deque<TreeNode> deque = new LinkedList<>();
+        Map<Integer,Integer> map = new HashMap<>();
+        PriorityQueue<Map.Entry<Integer,Integer>> priorityQueue = new PriorityQueue<>((o1, o2) -> o2.getValue() - o1.getValue());
+        while (root != null || !deque.isEmpty()){
+            while (root != null){
+                deque.add(root);
+                root = root.left;
+            }
+
+            root = deque.peek();
+            // map 统计
+            if(root != null){
+                map.put(root.val,map.getOrDefault(root.val,0)+1);
+            }
+            deque.pop();
+            root = root.right;
+        }
+        // 遍历map
+        for (Map.Entry<Integer,Integer> entry: map.entrySet()){
+            priorityQueue.add(entry);
+        }
+        Integer max = priorityQueue.peek().getValue();
+        List<Integer> values = new ArrayList<>();
+        while (!priorityQueue.isEmpty() && priorityQueue.peek().getValue() == max){
+            values.add(priorityQueue.poll().getKey());
+        }
+        return values.stream().mapToInt(Integer::valueOf).toArray();
+    }
+
     public static void main(String[] args) {
 //        int[] mode = findMode(NodeUtil.createTreeNodeByArr(new int[]{5, 3, 7, 2, 4, 6, 7}));
 //        int[] mode = findMode(NodeUtil.createTreeNodeByArr(new int[]{5, 3, 7, 2, 3, 6, 7}));
-        int[] mode = findMode(NodeUtil.createTreeNodeByArr(new int[]{5}));
-        Arrays.stream(mode).forEach(System.out::println);
+//        int[] mode = findMode(NodeUtil.createTreeNodeByArr(new int[]{5}));
+//        Arrays.stream(mode).forEach(System.out::println);
+//        int[] mode1 = findMode1(NodeUtil.createTreeNodeByArr(new int[]{5}));
+//        Arrays.stream(mode1).forEach(System.out::println);
+
+        TreeNode node1 = new TreeNode(1);
+        TreeNode node2 = new TreeNode(2);
+//        TreeNode node22 = new TreeNode(2);
+        node1.right = node2;
+//        node2.left = node22;
+
+        int[] mode1 = findMode1(node1);
+        Arrays.stream(mode1).forEach(System.out::println);
 
     }
 }
