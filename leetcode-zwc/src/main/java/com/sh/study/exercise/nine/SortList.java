@@ -152,7 +152,6 @@ public class SortList {
         }
         return len;
     }
-
     public static void main(String[] args) {
         ListNode head = NodeUtil.createListNodeByArr(new int[]{4, 2, 1, 3});
         ListNode resultHead = sortList1(head);
