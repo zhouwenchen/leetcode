@@ -183,6 +183,62 @@ public class Traversal {
         return res;
     }
 
+    /**
+     * 20210330
+     * @param root
+     * @return
+     */
+    public static List<Integer> inorderTraversal2(TreeNode root) {
+        if(root == null){
+            return null;
+        }
+        List<Integer> ans = new ArrayList<>();
+        Deque<TreeNode> deque = new LinkedList<>();
+        while (root != null || !deque.isEmpty()){
+            while (root != null){
+                deque.push(root);
+                root = root.left;
+            }
+            root = deque.peek();
+            ans.add(root.val);
+            deque.pop();
+            root = root.right;
+        }
+        return ans;
+    }
+
+    /**
+     *  Morris
+     *
+     * 中序遍历
+     * @param root
+     * @return
+     */
+    public static List<Integer> inorderTraversal3(TreeNode root) {
+        TreeNode cur = root;
+        List<Integer> ans = new ArrayList<>();
+        while (cur != null){
+            if (cur.left != null){
+                TreeNode pre = cur.left;
+                while (pre.right != null && pre.right != cur){
+                    pre = pre.right;
+                }
+                if(pre.right == null){
+                    pre.right = cur;
+                    cur = cur.left;
+                }else {
+                    ans.add(cur.val);
+                    pre.right = null;
+                    cur = cur.right;
+                }
+            }else {
+              ans.add(cur.val);
+              cur = cur.right;
+            }
+        }
+       return ans;
+    }
+
     // TODO =================================
 
     /**
@@ -282,6 +338,38 @@ public class Traversal {
             }
         }
         return res;
+    }
+
+    /**
+     *
+     *  后序遍历
+     * 20210330
+     * @param root
+     * @return
+     */
+    public static List<Integer> postorderTraversal4(TreeNode root) {
+        if(root == null){
+            return new ArrayList<>();
+        }
+        Deque<TreeNode> deque = new ArrayDeque<>();
+        List<Integer> ans = new ArrayList<>();
+        TreeNode pre = null;
+        while (root != null || !deque.isEmpty()){
+            while (root!= null){
+                deque.push(root);
+                root = root.left;
+            }
+            root = deque.peek();
+            if(root.right == null || root.right == pre){
+                ans.add(root.val);
+                deque.pop();
+                pre = root;
+                root = null;
+            }else{
+                root = root.right;
+            }
+        }
+        return ans;
     }
 
     // TODO =====================
@@ -440,9 +528,12 @@ public class Traversal {
 //        list.stream().forEach( o -> System.out.print(o + " "));
 
 //        levelOrder2(node1).stream().forEach(System.out::println);
-        preorderTraversal3(node1).stream().forEach(o-> System.out.print(o + "\t"));
+        postorderTraversal3(node1).stream().forEach(o-> System.out.print(o + "\t"));
         System.out.println();
-        preorderTraversal2(node1).stream().forEach(o-> System.out.print(o + "\t"));
+        postorderTraversal2(node1).stream().forEach(o-> System.out.print(o + "\t"));
+        System.out.println();
+        postorderTraversal4(node1).stream().forEach(o-> System.out.print(o + "\t"));
+//        preorderTraversal2(node1).stream().forEach(o-> System.out.print(o + "\t"));
 
 
     }
