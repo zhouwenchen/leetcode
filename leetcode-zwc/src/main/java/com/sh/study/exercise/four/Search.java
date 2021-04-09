@@ -110,8 +110,40 @@ public class Search {
      * @date 2020-10-22
      * @return
      */
-    public boolean search2(int[] nums, int target) {
-        
+    public static boolean search2(int[] nums, int target) {
+        if(nums == null){
+            return false;
+        }
+        int len = nums.length;
+        if(len == 1){
+            return nums[0] == target;
+        }
+        int l = 0;
+        int r = len - 1;
+        while (l <= r){
+            int mid = (l + r) / 2;
+            if(target == nums[mid]){
+                return true;
+            }
+
+            // 如果此时中间节点的值和左右节点相同，我们需要更新 l 和 r 的值
+            if(nums[l] == nums[mid] && nums[mid] == nums[r]){
+                ++l;
+                --r;
+            }else if(nums[l] <= nums[mid]){
+                if(nums[l] <= target && target < nums[mid]){
+                    r = mid - 1;
+                }else {
+                    l = mid + 1;
+                }
+            }else{
+                if(nums[mid] < target && target <= nums[len-1]){
+                    l = mid + 1;
+                }else {
+                    r = mid - 1;
+                }
+            }
+        }
         return false;
     }
 
@@ -122,12 +154,15 @@ public class Search {
 //        int[] nums = new int[]{4,5,6,7,0,1,2};
 //        int target = 3;
 
-        int[] nums = new int[]{5,1,3};
-        int target = 3;
+//        int[] nums = new int[]{5,1,3};
+//        int target = 3;
 //        int[] nums = new int[]{8,1,2,3,4,5,6,7};
 //        int target = 6;
 
-        int index = search1(nums, target);
-        System.out.println(index);
+//        int index = search1(nums, target);
+//        System.out.println(index);
+
+        System.out.println(search2(new int[]{2, 5, 6, 0, 0, 1, 2}, 6));
+
     }
 }
