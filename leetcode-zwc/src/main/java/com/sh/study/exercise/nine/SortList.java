@@ -152,9 +152,69 @@ public class SortList {
         }
         return len;
     }
+
+    /**
+     * 20210416
+     *
+     * @param head
+     * @return
+     */
+    public static ListNode sortList2(ListNode head) {
+        return mergeSort(head);
+    }
+
+    private static ListNode mergeSort(ListNode head) {
+        if(head == null || head.next == null){
+            return head;
+        }
+        // 找到链表的中间节点
+        ListNode mid = findMiddle(head);
+        ListNode bak = mid.next;
+        mid.next = null;
+
+        // 后序遍历左右链表
+        ListNode left = mergeSort(head);
+        ListNode right = mergeSort(bak);
+
+        // 遍历完成之后，开始将两个有序链表进行合并
+        ListNode dumy = new ListNode(-1);
+        ListNode tail = dumy;
+
+        // 这里是合并两个有序链表的模板
+        while (left != null || right != null){
+            if(right == null || left != null && left.val <= right.val){
+                tail.next = left;
+                tail = left;
+                left = left.next;
+            }else {
+                tail.next = right;
+                tail = right;
+                right = right.next;
+            }
+        }
+        tail.next = null;
+
+        return dumy.next;
+    }
+
+    // 找到中间节点
+    private static ListNode findMiddle(ListNode head) {
+        ListNode s1 = head;
+        ListNode s2 = head;
+        ListNode pre = s1;
+        while (s2 != null && s2.next != null){
+            pre = s1;
+            s1 = s1.next;
+            s2 = s2.next.next;
+        }
+        return s2 != null?s1:pre;
+    }
+
+
     public static void main(String[] args) {
         ListNode head = NodeUtil.createListNodeByArr(new int[]{4, 2, 1, 3});
-        ListNode resultHead = sortList1(head);
+//        ListNode resultHead = sortList1(head);
+        ListNode resultHead = sortList2(head);
         NodeUtil.printListNode(resultHead);
     }
 }
