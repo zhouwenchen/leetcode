@@ -186,6 +186,40 @@ public class BinarySearchDemo {
         return -1;
     }
 
+    /**
+     * 给定一个有序数组，找出数组中下标与值相等的那些数。
+     * @param nums
+     */
+    public static int getNumberSameAsIndex(int[] nums) {
+        if(nums == null || nums.length == 0){
+            return -1;
+        }
+        int start = 0;
+        int end = nums.length;
+        while (start < end){
+            final int mid = start + ((end - start) >> 1);
+            final int val = getVal(nums,mid);
+            if(val < 0){
+                start = mid + 1;
+            } else {
+                end = mid;
+            }
+        }
+        if(start < nums.length && nums[start] == start){
+            return start;
+        }
+        return -1;
+    }
+
+    private static int getVal(int[] nums, int mid) {
+        if(nums[mid] < mid){
+            return -1;
+        }else if(nums[mid] == mid){
+            return 0;
+        }
+        return 1;
+    }
+
     public static void main(String[] args) {
         int[] nums = new int[]{1, 1, 2, 2, 2, 3, 4, 5, 5, 6, 6, 6, 9, 11, 15,15};
         // target 的测试取值，要包含多种情况 0,1,2,7,15,17 这几种情况
