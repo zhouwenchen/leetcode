@@ -36,7 +36,7 @@ import netscape.security.UserTarget;
  * 这是因为第5和第6个石子之间的间距太大，没有可选的方案供青蛙跳跃过去。
  *
  * @Author zhouwenchen
- * @Date  2020-09-17]
+ * @Date  2020-09-17
  **/
 public class CanCross {
 
@@ -73,9 +73,41 @@ public class CanCross {
         return false;
     }
 
+    /**
+     * 20210429
+     *
+     * @param stones
+     * @return
+     */
+    public static boolean canCross1(int[] stones) {
+        int n = stones.length;
+        boolean[][] dp = new boolean[n][n];
+        dp[0][0] = true;
+        for (int i = 1; i < n; i++) {
+            if (stones[i] - stones[i - 1] > i) {
+                return false;
+            }
+        }
+
+        for (int i = 1; i < n; i++) {
+            for (int j = i - 1; j >= 0; --j) {
+                int k = stones[i] - stones[j];
+                if (k > j + 1) {
+                    break;
+                }
+                dp[i][k] = dp[j][k - 1] || dp[j][k] || dp[j][k + 1];
+                if (i == n - 1 && dp[i][k]) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
-//        int[] stones = new int[]{0,1,3,5,6,8,12,17};
-        int[] stones = new int[]{0,1,2,3,4,8,9,11};
-        System.out.println(canCross(stones));
+        int[] stones = new int[]{0,1,3,5,6,8,12,17};
+//        int[] stones = new int[]{0,1,2,3,4,8,9,11};
+//        System.out.println(canCross(stones));
+        System.out.println(canCross1(stones));
     }
 }
