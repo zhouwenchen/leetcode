@@ -89,18 +89,65 @@ public class EraseOverlapIntervals {
                 }
             }
         }
-
         return n - Arrays.stream(arr).max().getAsInt();
+    }
+
+    /**
+     * 20210507 根据end 进行排序
+     *
+     * @param intervals
+     * @return
+     */
+    public static int nonOverlapIntervals(int[][] intervals){
+        final int len = intervals == null ? 0 : intervals.length;
+
+        // 排序
+        Arrays.sort(intervals,(o1, o2) -> o1[1]==o2[1]?0:(o1[1]<o2[1]?-1:1));
+
+        // 已经重叠的最后段
+        int maxEnd = Integer.MIN_VALUE;
+        int ans = 0;
+        // 开始贪心算法
+        for (int i = 0; i < len; i++) {
+            if(maxEnd <= intervals[i][0]){
+                maxEnd = intervals[i][1];
+                ans++;
+            }
+        }
+        return len - ans;
+    }
+
+    /**
+     * 20210507 根据start 进行排序,从后面进行处理遍历操作
+     * @param intervals
+     * @return
+     */
+    public static int nonOverlapIntervals1(int[][] intervals){
+        final int len = intervals == null?0: intervals.length;
+        // 排序
+        Arrays.sort(intervals,(o1, o2) -> o1[0]==o2[0]?0:(o1[0] < o2[0]?-1:1));
+        int ans = 0;
+        int minStart = Integer.MAX_VALUE;
+        // 从后往前进行处理操作
+        for (int i = len - 1; i >= 0; i--) {
+            if(minStart >= intervals[i][1]){
+                minStart = intervals[i][0];
+                ans++;
+            }
+        }
+        return ans;
     }
 
     public static void main(String[] args) {
 //        int[][] intervals = new int[][]{{1,2}, {2,3}};
-        int[][] intervals = new int[][]{ {1,2}, {2,3}, {3,4}, {1,3} };
+//        int[][] intervals = new int[][]{ {1,2}, {2,3}, {3,4}, {1,3} };
 //        int[][] intervals = new int[][]{ {1,2}, {1,2}, {1,2}, {1,2} };
-//        int[][] intervals = new int[][]{{1,100},{11,22},{1,11},{2,12} };
+        int[][] intervals = new int[][]{{1,100},{11,22},{1,11},{2,12} };
 //        int min = eraseOverlapIntervals(intervals);
 //        System.out.println(min);
 
-        System.out.println(eraseOverlapIntervals1(intervals));
+//        System.out.println(eraseOverlapIntervals1(intervals));
+//        System.out.println(nonOverlapIntervals(intervals));
+        System.out.println(nonOverlapIntervals1(intervals));
     }
 }
