@@ -22,6 +22,7 @@ package com.sh.study.exercise.every.two;
  * 子串 "BBBB" 有最长重复字母, 答案为 4。
  */
 public class CharacterReplacement {
+
     public static int characterReplacement(String s, int k) {
         int[] num = new int[26];
         int n = s.length();
@@ -41,7 +42,31 @@ public class CharacterReplacement {
         return right - left;
     }
 
+    public static int characterReplacement1(String s, int k) {
+        final int n = s == null ? 0: s.length();
+        int left = -1;
+        int[] cnt = new int[256];
+        int oneNumber = 0;
+        int ans = 0;
+
+        for (int i = 0; i < n; i++) {
+            final int c = s.charAt(i);
+            cnt[c]++;
+
+            oneNumber = Math.max(oneNumber,cnt[c]);
+
+            if(i - left - oneNumber > k){
+                final int old = s.charAt(++left);
+                cnt[old]--;
+            }
+            //
+            ans = Math.max(ans,i-left);
+        }
+        return ans;
+    }
+
     public static void main(String[] args) {
         System.out.println(characterReplacement("ABAB", 2));
+        System.out.println(characterReplacement1("ABAB", 2));
     }
 }
