@@ -46,8 +46,45 @@ public class PeakIndexInMountainArray {
         return i;
     }
 
+    /**
+     *
+     * @date 20200419
+     * @author zhouwenchen
+     * @param arr
+     * @return
+     */
+    public static int peakIndexInMountainArray1(int[] arr) {
+        if(arr == null || arr.length < 3){
+            return -1;
+        }
+        int start = 1;
+        int end = arr.length - 1;
+        while (start < end){
+            final int mid = start + ((end-start)>>1);
+            final int val = getVale(arr,mid);
+            if (val < 0){
+                start = mid + 1;
+            }else {
+                end = mid;
+            }
+        }
+        return start;
+    }
+
+    private static int getVale(int[] arr, int mid) {
+        if(arr[mid -1] < arr[mid] && arr[mid] < arr[mid+1]){
+            return -1;
+        }
+        if(arr[mid -1] < arr[mid] && arr[mid] > arr[mid+1]){
+            return 0;
+        }
+        return 1;
+    }
+
     public static void main(String[] args) {
 //        System.out.println(peakIndexInMountainArray(new int[]{0, 2, 1, 0}));
-        System.out.println(peakIndexInMountainArray(new int[]{0, 1, 2, 1}));
+//        System.out.println(peakIndexInMountainArray1(new int[]{0, 1, 2, 1}));
+        int[] arr = new int[]{40,48,61,75,100,99,98,39,30,10};
+        System.out.println(peakIndexInMountainArray1(arr));
     }
 }
