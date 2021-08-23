@@ -103,9 +103,35 @@ public class GetMaximumGenerated {
         return nums[n];
     }
 
+    /**
+     * 20210823
+     * @param n
+     * @return
+     */
+    public static int getMaximumGenerated2(int n) {
+        if(n <1){
+            return n;
+        }
+        int[] dp = new int[n+1];
+        dp[1] = 1;
+        int res = 1;
+        for (int i = 2; i <= n; i++){
+            if(i % 2== 0){
+                dp[i] = dp[i/2];
+            }else {
+                dp[i] = dp[i/2] + dp[i/2+1];
+            }
+            res =Math.max(dp[i],res);
+        }
+        return res;
+    }
+
+
+
     public static void main(String[] args) {
 //        System.out.println(getMaximumGenerated(7));
-        System.out.println(getMaximumGenerated(1));
+        System.out.println(getMaximumGenerated(15));
+        System.out.println(getMaximumGenerated2(15));
 //        System.out.println(getMaximumGenerated(15));
     }
 }
