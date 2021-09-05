@@ -121,7 +121,7 @@ public class Fib {
         dp[2] = 1;
         for (int i = 3; i <=n;i++){
             // 状态转移方程式
-            dp[i] = dp[i-1]+dp[i-2];
+            dp[i] = (dp[i-1]+dp[i-2])%constant;
         }
         return dp[n];
     }
@@ -173,10 +173,14 @@ public class Fib {
     }
 
     public static void main(String[] args) {
-        System.out.println(fib1(20));
-        System.out.println(fib2(20));
-        System.out.println(fib3(20));
-        System.out.println(fib4(20));
-        System.out.println(fib5(3));
+        System.out.println(fib1(45));
+        System.out.println(fib2(45));
+        /**
+         * TODO 以下好像都不是正确的 需要取余 constant
+         */
+        System.out.println(fib3(45));
+        System.out.println(fib4(45));
+        System.out.println(fib5(45));
+        System.out.println(fib5(45));
     }
 }
