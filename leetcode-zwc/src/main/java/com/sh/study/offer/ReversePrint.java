@@ -3,9 +3,7 @@ package com.sh.study.offer;
 import com.sh.study.node.ListNode;
 import com.sh.study.util.NodeUtil;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Stack;
 
 /**
