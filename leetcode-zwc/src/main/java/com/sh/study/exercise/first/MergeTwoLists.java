@@ -52,6 +52,32 @@ public class MergeTwoLists {
     }
 
     /**
+     * 以上可以进行优化操作
+     * @param node1
+     * @param node2
+     * @return
+     */
+    public static ListNode mergeTwoLists3(ListNode node1, ListNode node2) {
+        ListNode head = new ListNode(-1);
+        ListNode tail = head;
+        while (node1 != null && node2 != null){
+            if(node1.val < node2.val){
+                tail.next = node1;
+                tail = node1;
+                node1 = node1.next;
+            }else {
+                tail.next = node2;
+                tail = node2;
+                node2 = node2.next;
+            }
+        }
+        tail.next = node1 == null? node2:node1;
+        tail = tail.next;
+//        tail.next = null;
+        return head.next;
+    }
+
+    /**
      * 202103231133
      * @param node1
      * @param node2
@@ -84,10 +110,13 @@ public class MergeTwoLists {
 
     public static void main(String[] args) {
 
-        ListNode node1 = NodeUtil.createListNodeByArr(new int[]{1, 2, 4, 5});
-        ListNode node2 = NodeUtil.createListNodeByArr(new int[]{1, 3, 4});
-//        ListNode result = mergeTwoLists(node1, node2);
-        ListNode result = mergeTwoLists1(node1, node2);
-        NodeUtil.printListNode(result);
+//        ListNode node1 = NodeUtil.createListNodeByArr(new int[]{1, 2, 4, 5});
+//        ListNode node2 = NodeUtil.createListNodeByArr(new int[]{1, 3, 4});
+////        ListNode result = mergeTwoLists(node1, node2);
+//        ListNode result = mergeTwoLists1(node1, node2);
+//        NodeUtil.printListNode(result);
+
+        NodeUtil.printListNode(mergeTwoLists3(NodeUtil.createListNodeByArr(new int[]{1,2,3,5}),
+                NodeUtil.createListNodeByArr(new int[]{1,3,4})));
     }
 }
