@@ -31,6 +31,7 @@ import java.util.Map;
 public class LengthOfLongestSubstring {
     /**
      * 使用滑动窗口实现操作
+     * 感觉像是双指针
      * @param s
      * @return
      */
@@ -146,6 +147,6 @@ public class LengthOfLongestSubstring {
 //        System.out.println(lengthOfLongestSubstring("abcabcbb"));
 //        System.out.println(lengthOfLongestSubstring1("abcabcbb"));
 //        System.out.println(lengthOfLongestSubstring2("abcabcbb"));
-        System.out.println(lengthOfLongestSubstring3("abcdeabc"));
+//        System.out.println(lengthOfLongestSubstring3("abcdeabc"));
     }
 }
