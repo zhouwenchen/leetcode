@@ -22,14 +22,14 @@ public class BinarySearch {
         }
         int low = 0;
         int high = nums.length - 1;
-        while (low < high) {
+        while (low <= high) {
             int mid = (low + high) / 2;
             if (nums[mid] == target) {
                 return mid;
             } else if (nums[mid] < target) {
                 low = mid + 1;
             } else {
-                high = high - 1;
+                high = mid - 1;
             }
         }
         return -1;
@@ -57,9 +57,13 @@ public class BinarySearch {
     }
 
     public static void main(String[] args) {
-        int[] nums = {1, 3, 5, 7, 8, 11, 19, 23, 27, 33, 45, 55, 67, 98};
-        int target = 27;
+//        int[] nums = {1, 3, 5, 7, 8, 11, 19, 23, 27, 33, 45, 55, 67, 98};
+//        int target = 27;
+
+//        int[] nums = {1,3,5,7,9,11};
+        int[] nums = {1,3,5,7,9};
+        int target = 5;
         System.out.println("location is " + binarySearch(nums, target));
-        System.out.println("location is " +  binarySearch0(nums, 0, nums.length - 1, target));
+//        System.out.println("location is " +  binarySearch0(nums, 0, nums.length - 1, target));
     }
 }
