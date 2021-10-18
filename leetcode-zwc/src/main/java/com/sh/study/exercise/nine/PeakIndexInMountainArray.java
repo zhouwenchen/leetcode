@@ -81,10 +81,49 @@ public class PeakIndexInMountainArray {
         return 1;
     }
 
+    /**
+     *
+     * @param arr
+     * @return
+     */
+    public static int peakIndexInMountainArray2(int[] arr) {
+        // 找到第一个也就是最大值
+        if(arr == null){
+            return 0;
+        }
+        int index = 0;
+        for (; index < arr.length - 1; index++) {
+            if(arr[index] > arr[index+1]){
+                return index;
+            }
+        }
+        return index;
+    }
+
+    /**
+     * 使用二分查找的方式实现
+     *
+     * @param arr
+     * @return
+     */
+    public static int peakIndexInMountainArray3(int[] arr) {
+        int n = arr.length;
+        int left = 1, right = n - 2, ans = 0;
+        while (left <= right) {
+            int mid = left +  ((right - left) >> 1);
+            if (arr[mid] > arr[mid + 1]) {
+                ans = mid;
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return ans;
+    }
+
     public static void main(String[] args) {
 //        System.out.println(peakIndexInMountainArray(new int[]{0, 2, 1, 0}));
 //        System.out.println(peakIndexInMountainArray1(new int[]{0, 1, 2, 1}));
-        int[] arr = new int[]{40,48,61,75,100,99,98,39,30,10};
-        System.out.println(peakIndexInMountainArray1(arr));
+        System.out.println(peakIndexInMountainArray3(new int[]{40,48,61,75,100,99,98,39,30,10}));
     }
 }
