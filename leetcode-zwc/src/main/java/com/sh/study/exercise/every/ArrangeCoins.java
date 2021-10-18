@@ -35,6 +35,7 @@ package com.sh.study.exercise.every;
  */
 public class ArrangeCoins {
     /**
+     * TODO 未完全通过
      *
      * @param n
      * @return
