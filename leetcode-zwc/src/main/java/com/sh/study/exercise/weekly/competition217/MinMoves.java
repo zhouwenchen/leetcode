@@ -1,5 +1,8 @@
 package com.sh.study.exercise.weekly.competition217;
 
+import java.util.Arrays;
+import java.util.regex.Pattern;
+
 /**
  * 5615. 使数组互补的最少操作次数
 
@@ -67,8 +70,47 @@ public class MinMoves {
         return res;
     }
 
+    /**
+     *
+     * 453. 最小操作次数使数组元素相等
+     * 给你一个长度为 n 的整数数组，每次操作将会使 n - 1 个元素增加 1 。返回让数组所有元素相等的最小操作次数。
+     *
+     *
+     *
+     * 示例 1：
+     *
+     * 输入：nums = [1,2,3]
+     * 输出：3
+     * 解释：
+     * 只需要3次操作（注意每次操作会增加两个元素的值）：
+     * [1,2,3]  =>  [2,3,3]  =>  [3,4,3]  =>  [4,4,4]
+     * 示例 2：
+     *
+     * 输入：nums = [1,1,1]
+     * 输出：0
+     *
+     *
+     * 提示：
+     *
+     * n == nums.length
+     * 1 <= nums.length <= 105
+     * -109 <= nums[i] <= 109
+     * @param nums
+     * @param limit
+     * @return
+     */
+    public static int minMoves1(int[] nums, int limit) {
+        int min = Arrays.stream(nums).min().getAsInt();
+        int res = 0;
+        for (int num: nums){
+            res += num - min;
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
-        System.out.println(minMoves(new int[]{1, 2, 4, 3}, 4));
-        System.out.println(minMoves(new int[]{1, 2, 4, 3}, 4));
+//        System.out.println(minMoves(new int[]{1, 2, 4, 3}, 4));
+//        System.out.println(minMoves(new int[]{1, 2, 4, 3}, 4));
+
     }
 }
