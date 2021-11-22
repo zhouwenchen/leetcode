@@ -44,6 +44,7 @@ public class EraseOverlapIntervals {
      * @return
      */
     public static int eraseOverlapIntervals(int[][] intervals) {
+
         // map 中存储，key存储数组最小值，value 存储数组，如果key有重复的话，那么就需要删除+1
         int deletecount = 0;
         Map<Integer, int[]> map  = new TreeMap<Integer,int[]>(new Comparator<Integer>() {
@@ -52,22 +53,24 @@ public class EraseOverlapIntervals {
                 return o1 - o2;
             }
         });
-
-        for(int i = 0; i < intervals.length;i++){
-            int key = intervals[i][0];
-            map.put(key,intervals[i]);
-
+        int oldMinValue = Integer.MAX_VALUE;
+//        for(int i = 0; i < intervals.length;i++){
+//            int key = intervals[i][0];
+//            // 如果左值相同，就去掉一个右值的最大值。
 //            if(map.containsKey(key)){
-//                int[] values = map.get((intervals[i][0]));
-//                int oldMaxValue = values[1];
-//                if(intervals[i][1] >= oldMaxValue){
-//                    map.put((intervals[i][0]),intervals[i]);
-//                    deletecount++;
-//                }
-//            } else{
-//                map.put(intervals[i][0],intervals[i]);
+//                oldMinValue = Math.min(intervals[i][1],oldMinValue);
+//                intervals[i][1] = oldMinValue;
+//                map.put(key,intervals[i]);
+//                deletecount++;
+//            } else if(oldMinValue > intervals[i][0] || oldMinValue < intervals[i][1]){
+//                // 左值小于上一个的最右值,直接去掉当前值
+//                deletecount++;
+//                oldMinValue = Math.min(Math.min(intervals[i][1],oldMinValue),intervals[i][0]);
+//            }else {
+//                map.put(key,intervals[i]);
+//                oldMinValue =intervals[i][1];
 //            }
-        }
+//        }
         // 遍历操作
 
         return deletecount;
@@ -148,6 +151,6 @@ public class EraseOverlapIntervals {
 
 //        System.out.println(eraseOverlapIntervals1(intervals));
 //        System.out.println(nonOverlapIntervals(intervals));
-        System.out.println(nonOverlapIntervals1(intervals));
+        System.out.println(eraseOverlapIntervals(intervals));
     }
 }

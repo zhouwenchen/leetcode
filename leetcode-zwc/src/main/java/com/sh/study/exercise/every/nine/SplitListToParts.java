@@ -66,7 +66,7 @@ public class SplitListToParts {
         ListNode cur = head;
         for (int i = 0; i < k && cur != null ;i++){
             parts[i] = cur;
-            int partSize = count + (i < moreCount?1:0);
+            int partSize = count + (i < moreCount ? 1 : 0);
             for (int j = 1; j < partSize; j++) {
                 cur = cur.next;
             }

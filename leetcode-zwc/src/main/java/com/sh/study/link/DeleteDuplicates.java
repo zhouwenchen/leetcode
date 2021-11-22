@@ -65,7 +65,6 @@ public class DeleteDuplicates {
         ListNode pre = dumy;
         ListNode cur = pre.next;
         while (cur != null){
-            int value = cur.val;
             int count = 0;
             ListNode diffNode = cur;
             // 找到 diffNode 和 cur 不同的节点

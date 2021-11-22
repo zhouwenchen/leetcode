@@ -83,6 +83,26 @@ public class GetIntersectionNode {
         return null;
     }
 
+    /**
+     * 双指针,这个想法太牛皮了
+     *
+     * @param headA
+     * @param headB
+     * @return
+     */
+    public ListNode getIntersectionNode1(ListNode headA, ListNode headB) {
+        if(headA == null || headB == null){
+            return null;
+        }
+        ListNode pA = headA;
+        ListNode pB = headB;
+        while (pA != pB){
+            pA = pA == null? headB:pA.next;
+            pB = pB == null? headA:pB.next;
+        }
+        return pA;
+    }
+
     public static void main(String[] args) {
         ListNode node4 = new ListNode(4);
         ListNode node1 = new ListNode(1);

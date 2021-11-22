@@ -54,9 +54,10 @@ public class PlusOne {
     }
 
     public static void main(String[] args) {
-        int[] digits = new int[]{1,2,3};
+//        int[] digits = new int[]{1,2,3};
 //        int[] digits = new int[]{1,2,9};
 //        int[] digits = new int[]{9,9,9};
+        int[] digits = new int[]{9,2,3};
         int[] one = plusOne(digits);
         Arrays.stream(one).forEach(o-> System.out.print(o + "\t"));
     }

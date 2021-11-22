@@ -30,7 +30,7 @@ public class ReverseBetween {
         if(head == null){
             return head;
         }
-        // 遍历链表,知道需要反转的地方
+        // 遍历链表,直到需要反转的地方
         ListNode dumy = new ListNode(-1);
         ListNode pre = dumy;
         dumy.next = head;

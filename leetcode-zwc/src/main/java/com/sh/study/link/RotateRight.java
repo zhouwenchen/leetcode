@@ -78,7 +78,6 @@ public class RotateRight {
         if(head == null || k == 0){
             return head;
         }
-        int len = 0;
         ListNode dumy = new ListNode(-1);
         dumy.next = head;
         ListNode first = dumy;

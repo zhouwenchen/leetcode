@@ -108,6 +108,26 @@ public class MergeTwoLists {
         return dumy.next;
     }
 
+    /**
+     * 使用递归实现操作
+     * @param node1
+     * @param node2
+     * @return
+     */
+    public static ListNode mergeTwoLists2(ListNode node1, ListNode node2) {
+        if(node1 == null){
+            return node2;
+        }else if(node2 == null){
+            return node1;
+        }else if(node1.val < node2.val){
+            node1.next = mergeTwoLists2(node1.next,node2);
+            return node1;
+        }else {
+            node2.next = mergeTwoLists2(node1,node2.next);
+            return node2;
+        }
+    }
+
     public static void main(String[] args) {
 
 //        ListNode node1 = NodeUtil.createListNodeByArr(new int[]{1, 2, 4, 5});
@@ -116,7 +136,7 @@ public class MergeTwoLists {
 //        ListNode result = mergeTwoLists1(node1, node2);
 //        NodeUtil.printListNode(result);
 
-        NodeUtil.printListNode(mergeTwoLists3(NodeUtil.createListNodeByArr(new int[]{1,2,3,5}),
+        NodeUtil.printListNode(mergeTwoLists2(NodeUtil.createListNodeByArr(new int[]{1,2,3,5}),
                 NodeUtil.createListNodeByArr(new int[]{1,3,4})));
     }
 }
