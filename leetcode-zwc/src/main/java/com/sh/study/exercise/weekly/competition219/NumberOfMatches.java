@@ -48,6 +48,11 @@ public class NumberOfMatches {
         return result;
     }
 
+    public static int numberOfMatches1(int n) {
+        return n-1;
+    }
+
+
     public static void main(String[] args) {
         System.out.println(numberOfMatches(7));
         System.out.println(numberOfMatches(14));

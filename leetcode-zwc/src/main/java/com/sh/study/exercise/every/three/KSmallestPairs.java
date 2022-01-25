@@ -35,26 +35,26 @@ public class KSmallestPairs {
 
     public static List<List<Integer>> kSmallestPairs(int[] nums1, int[] nums2, int k) {
         List<List<Integer>> res = new ArrayList<>();
-        k = Math.min(k,nums1.length * nums2.length);
-        if(k == 0){
+        k = Math.min(k, nums1.length * nums2.length);
+        if (k == 0) {
             return res;
         }
 
-        PriorityQueue<int[]> queue = new PriorityQueue<>((o1, o2) -> (o2[0] + o2[1])-(o1[0] + o1[1]));
-        for (int e1: nums1){
-            for (int e2:nums2){
-                if(queue.size() < k){
-                    queue.offer(new int[]{e1,e2});
+        PriorityQueue<int[]> queue = new PriorityQueue<>((o1, o2) -> (o2[0] + o2[1]) - (o1[0] + o1[1]));
+        for (int e1 : nums1) {
+            for (int e2 : nums2) {
+                if (queue.size() < k) {
+                    queue.offer(new int[]{e1, e2});
 
-                } else if(e1 + e2 < queue.peek()[0] + queue.peek()[1]){
+                } else if (e1 + e2 < queue.peek()[0] + queue.peek()[1]) {
                     queue.poll();
-                    queue.offer(new int[]{e1,e2});
+                    queue.offer(new int[]{e1, e2});
                 }
             }
         }
-        while (k-- > 0){
+        while (k-- > 0) {
             int[] e = queue.poll();
-            res.add(0,Arrays.asList(e[0],e[1]));
+            res.add(0, Arrays.asList(e[0], e[1]));
         }
         return res;
     }
