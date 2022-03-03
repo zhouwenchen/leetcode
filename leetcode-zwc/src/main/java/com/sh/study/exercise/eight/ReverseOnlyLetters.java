@@ -1,5 +1,8 @@
 package com.sh.study.exercise.eight;
 
+
+import java.util.Stack;
+
 /**
  * 917. 仅仅反转字母
  * 给定一个字符串 S，返回 “反转后的” 字符串，其中不是字母的字符都保留在原地，而所有字母的位置发生反转。
@@ -62,10 +65,39 @@ public class ReverseOnlyLetters {
         return new String(arrs);
     }
 
+    /**
+     * 使用栈实现操作
+     * 先将所有的字母添加到栈中，然后遍历S，如果是字母的话，就从栈中取出元素，否则直接S[i]
+     * @param S
+     * @return
+     */
+    public static String reverseOnlyLetters1(String S) {
+        // S,所有字母入栈操作
+        Stack<Character> stack = new Stack<>();
+        for (char c : S.toCharArray()) {
+            if(Character.isLetter(c)){
+                stack.push(c);
+            }
+        }
+
+        // 遍历S
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < S.length(); i++) {
+            if(Character.isLetter(S.charAt(i))){
+                sb.append(stack.pop());
+            }else {
+                sb.append(S.charAt(i));
+            }
+        }
+
+        return sb.toString();
+    }
+
     public static void main(String[] args) {
 //        String s = "a-bC-dEf-ghIj"; // "j-Ih-gfE-dCba"
-//        String s = "Test1ng-Leet=code-Q!"; // "Qedo1ct-eeLg=ntse-T!"
-        String s = "7_28]"; // "Qedo1ct-eeLg=ntse-T!"
-        System.out.println(reverseOnlyLetters(s));
+        String s = "Test1ng-Leet=code-Q!"; // "Qedo1ct-eeLg=ntse-T!"
+//        String s = "7_28]"; // "Qedo1ct-eeLg=ntse-T!"
+        System.out.println(reverseOnlyLetters1(s));
+
     }
 }
